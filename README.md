@@ -1,6 +1,11 @@
 ## PhD dissertation appendix files @ `github.com/tystan/thesis`
 
-R functions and code for the PhD dissertation of Tyman Standford titled "Statistical analysis of proteomic mass spectrometry data for the identification of biomarkers and disease diagnosis".
+R functions and code for the PhD dissertation of Tyman Stanford titled,
+
+> Statistical analysis of proteomic mass spectrometry data for the identification of biomarkers and disease diagnosis.
+
+The University of Adelaide, 2015.
+
 
 ## Navigation
 
