@@ -1,6 +1,6 @@
-## `github.com/tystan/thesis`
+## PhD dissertation appendix files @ `github.com/tystan/thesis`
 
-PhD dissertation appendix files: R functions and code.
+R functions and code for the PhD dissertation of Tyman Standford titled "Statistical analysis of proteomic mass spectrometry data for the identification of biomarkers and disease diagnosis".
 
 ## Navigation
 
