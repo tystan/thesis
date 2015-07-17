@@ -1,5 +1,5 @@
 ## PhD dissertation appendix files 
-###### @ `github.com/tystan/thesis/`
+###### @ [`github.com/tystan/thesis/`](https://github.com/tystan/thesis/)
 
 R functions and code for the PhD dissertation of Tyman Stanford.
 
@@ -10,11 +10,11 @@ R functions and code for the PhD dissertation of Tyman Stanford.
 
 ## Navigation
 
-* A PDF version of the code is available in `AppendixRCode.pdf`. 
+* A PDF version of the code is available in [`AppendixRCode.pdf`](https://github.com/tystan/thesis/AppendixRCode.pdf). 
     * This contains all the relevant R code in one syntax highlighted self-contained document.
-    * `AppendixRCode.tex` top-level of this repository is the TeX file required to generate `AppendixRCode.pdf`. 
-    * The directory `tex/` contains the source files referenced in `AppendixRCode.tex`. 
-* The individual R files are available in the `R/` directory. 
+    * [`AppendixRCode.tex`](https://github.com/tystan/thesis/AppendixRCode.tex) top-level of this repository is the TeX file required to generate `AppendixRCode.pdf`. 
+    * The directory [`tex/`](https://github.com/tystan/thesis/tex/) contains the source files referenced in `AppendixRCode.tex`. 
+* The individual R files are available in the [`R/`](https://github.com/tystan/thesis/R/) directory. 
     * They are numbered so as to be ordered in sequence of appearance in the dissertation and `AppendixRCode.pdf`.
 
 
