@@ -2,13 +2,12 @@
 
 
 
-# to run type: 
-# cd ~/Documents/thesis/R
+### to run at once: 
 # chmod 755 0000_getpygmentscode.sh
 # ./0000_pygmentise_code.sh
 
 
-cd ~/Documents/thesis/R
+cd ~/Documents/ThesisAppRcode
 
 THISSTYLE='manni'
 echo ${THISSTYLE}
@@ -35,10 +34,10 @@ VERB_OPTS="verboptions=gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize
 ## these are the files to loop over
 
 declare -a R_FILES=( \
-'tophatcode' 'erosionquick' 'ctserosionquick' \
-'quantnorm' 'MAadj' 'NMalign' 'guideTreePeakAlign' \
-'doSVA' 'createPFldaobj' 'PFldapredict' \
-'paretofronts' \
+'01_tophatcode' '02_erosionquick' '03_ctserosionquick' \
+'04_quantnorm' '05_MAadj' '06_NMalign' '07_guideTreePeakAlign' \
+'08_doSVA' '09_createPFldaobj' '10_PFldapredict' \
+'12_ParetoFronts' \
  );
 
 
@@ -53,7 +52,7 @@ pygmentize -O $TEX_OPTS -f tex -P $VERB_OPTS -o tex/$t".tex" R/$t".R"
 done
 
 
-pygmentize -O $TEX_OPTS -f tex -P $VERB_OPTS -o tex/domfeat.tex R/domfeat.c
+pygmentize -O $TEX_OPTS -f tex -P $VERB_OPTS -o tex/11_domfeat.tex R/11_domfeat.c
 
 
 
