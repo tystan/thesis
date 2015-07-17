@@ -8,7 +8,7 @@ R functions and code for the PhD dissertation of Tyman Stanford.
 
 ## Navigation
 
-* A PDF version of the code is available in [`AppendixRCode.pdf`](../blob/master/AppendixRCode.pdf). 
+* A PDF version of the code is available in [`AppendixRCode.pdf`](../master/AppendixRCode.pdf). 
     * This contains all the relevant R code in one syntax highlighted self-contained document.
     * [`AppendixRCode.tex`](https://github.com/tystan/thesis/blob/master/AppendixRCode.tex) top-level of this repository is the TeX file required to generate [`AppendixRCode.pdf`](https://github.com/tystan/thesis/blob/master/AppendixRCode.pdf). 
     * The directory [`tex/`](https://github.com/tystan/thesis/tree/master/tex/) contains the source files referenced in [`AppendixRCode.tex`](https://github.com/tystan/thesis/blob/master/AppendixRCode.tex). 
