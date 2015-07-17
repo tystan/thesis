@@ -1,0 +1,49 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} FUNCTION: PFldapredict()}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} estimate probabilities and class of new inputs}
+
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} input:}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} ldaobj: an object created by createPFldaobj()}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Xnew: a n x p matrix, of n obs and p variables. }
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}         May also be a single numeric vector (n=1) of length p}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} priors: a vector of length K (\PYZsh{}classes) with elements in (0,1)}
+
+PFldapredict\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}ldaobj\PY{p}{,}Xnew\PY{p}{,}priors\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{)}
+\PY{p}{\PYZob{}}
+  \PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{is.vector}\PY{p}{(}Xnew\PY{p}{,}mode\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{numeric\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+    Xnew\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}Xnew\PY{p}{,}nrow\PY{o}{=}\PY{l+m}{1}\PY{p}{)}
+  \PY{p}{\PYZcb{}}\PY{k+kr}{else} \PY{k+kr}{if}\PY{p}{(}\PY{o}{!}\PY{k+kp}{is.matrix}\PY{p}{(}Xnew\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+    \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Xnew must be numeric and either a vector or matrix \PYZbs{}n \PYZdq{}}\PY{p}{)}
+  \PY{p}{\PYZcb{}}
+
+  Nnew\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{nrow}\PY{p}{(}Xnew\PY{p}{)}
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} centre each feature at 0, as done on the training data}
+  Xnew\PY{o}{\PYZlt{}\PYZhy{}}Xnew\PY{o}{\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}ldaobj\PY{o}{\PYZdl{}}meanadj\PY{p}{,}Nnew\PY{p}{)}\PY{p}{,}nrow\PY{o}{=}Nnew\PY{p}{,}byrow\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+  Xclasses\PY{o}{\PYZlt{}\PYZhy{}}ldaobj\PY{o}{\PYZdl{}}classes
+  K\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}Xclasses\PY{p}{)}
+  \PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{is.null}\PY{p}{(}priors\PY{p}{)}\PY{p}{)} priors\PY{o}{\PYZlt{}\PYZhy{}}ldaobj\PY{o}{\PYZdl{}}prior
+  
+  outposteriors\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nrow\PY{o}{=}Nnew\PY{p}{,}ncol\PY{o}{=}K\PY{p}{)}
+  \PY{k+kp}{colnames}\PY{p}{(}outposteriors\PY{p}{)}\PY{o}{\PYZlt{}\PYZhy{}}Xclasses
+  
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} discrim function: $\delta_k(x_{new})$}
+  \PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}Nnew\PY{p}{)}\PY{p}{\PYZob{}}
+    \PY{k+kr}{for}\PY{p}{(}k \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}K\PY{p}{)}\PY{p}{\PYZob{}}
+      outposteriors\PY{p}{[}i\PY{p}{,}k\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{log}\PY{p}{(}priors\PY{p}{[}k\PY{p}{]}\PY{p}{)} \PY{o}{\PYZhy{}} ldaobj\PY{o}{\PYZdl{}}consts\PY{p}{[}k\PY{p}{]} 
+                                 \PY{o}{+} \PY{k+kp}{sum}\PY{p}{(}Xnew\PY{p}{[}i\PY{p}{,}\PY{p}{]}\PY{o}{*}ldaobj\PY{o}{\PYZdl{}}lins\PY{p}{[[}k\PY{p}{]]}\PY{p}{)}
+    \PY{p}{\PYZcb{}}
+  \PY{p}{\PYZcb{}}
+  
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} predicted class is arg max}
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} $p(G_K|x_{new})=\tfrac{P\left(x_{new}|G_k\right)P\left(G_k\right)}{\sum_{i=1}^{K}P\left(x_{new}|G_i\right)P\left(G_i\right)}$}
+  predclasses\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}Nnew\PY{p}{)}
+  \PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}Nnew\PY{p}{)}\PY{p}{\PYZob{}}
+    outposteriors\PY{p}{[}i\PY{p}{,}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{exp}\PY{p}{(}outposteriors\PY{p}{[}i\PY{p}{,}\PY{p}{]}\PY{p}{)}
+    predclasses\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{which.max}\PY{p}{(}outposteriors\PY{p}{[}i\PY{p}{,}\PY{p}{]}\PY{p}{)}
+    outposteriors\PY{p}{[}i\PY{p}{,}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}outposteriors\PY{p}{[}i\PY{p}{,}\PY{p}{]}\PY{o}{/}\PY{k+kp}{sum}\PY{p}{(}outposteriors\PY{p}{[}i\PY{p}{,}\PY{p}{]}\PY{p}{)}
+  \PY{p}{\PYZcb{}}
+  outpred\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{factor}\PY{p}{(}Xclasses\PY{p}{[}predclasses\PY{p}{]}\PY{p}{)}
+  
+  \PY{k+kr}{return}\PY{p}{(}\PY{k+kt}{list}\PY{p}{(}pred\PY{o}{=}outpred\PY{p}{,}posteriors\PY{o}{=}outposteriors\PY{p}{)}\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}

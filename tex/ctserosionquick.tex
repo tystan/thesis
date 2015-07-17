@@ -1,0 +1,65 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
+erode.cts.quick\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}f\PY{p}{,}se.span\PY{p}{)}\PY{p}{\PYZob{}}
+
+	out.vector\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+	nx\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}x\PY{p}{)}
+	x.span\PY{o}{\PYZlt{}\PYZhy{}}x\PY{p}{[}nx\PY{p}{]}\PY{o}{\PYZhy{}}x\PY{p}{[}\PY{l+m}{1}\PY{p}{]}
+	k\PY{o}{\PYZlt{}\PYZhy{}}se.span
+	t1\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{proc.time}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m}{3}\PY{p}{]}
+	isAppend\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{FALSE}
+	
+	\PY{k+kr}{if}\PY{p}{(}k\PY{o}{\PYZgt{}=}x.span\PY{p}{)}\PY{p}{\PYZob{}}
+		\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Warning: structuring element spans the entire input set \PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{The input f vector has been output \PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{k+kr}{return}\PY{p}{(}f\PY{p}{)}
+	\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}}
+		m\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{ceiling}\PY{p}{(}x.span\PY{o}{/}k\PY{p}{)}
+		mk\PY{o}{\PYZlt{}\PYZhy{}}m\PY{o}{*}k
+		\PY{k+kr}{if}\PY{p}{(}\PY{o}{!}\PY{p}{(}\PY{p}{(}x\PY{p}{[}\PY{l+m}{1}\PY{p}{]}\PY{o}{+}mk\PY{p}{)} \PY{o}{==} x\PY{p}{[}nx\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+			x\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{c}\PY{p}{(}x\PY{p}{,}x\PY{p}{[}\PY{l+m}{1}\PY{p}{]}\PY{o}{+}mk\PY{p}{)}
+			f\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{c}\PY{p}{(}f\PY{p}{,}\PY{o}{+}\PY{k+kc}{Inf}\PY{p}{)}
+			isAppend\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{TRUE}
+			nx\PY{o}{\PYZlt{}\PYZhy{}}nx\PY{l+m}{+1}
+			x.span\PY{o}{\PYZlt{}\PYZhy{}}x\PY{p}{[}nx\PY{p}{]}\PY{o}{\PYZhy{}}x\PY{p}{[}\PY{l+m}{1}\PY{p}{]}
+		\PY{p}{\PYZcb{}}
+		k.blocks\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{c}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}\PY{k+kp}{findInterval}\PY{p}{(}x\PY{p}{,}\PY{k+kp}{seq}\PY{p}{(}x\PY{p}{[}\PY{l+m}{1}\PY{p}{]}\PY{p}{,}x\PY{p}{[}\PY{l+m}{1}\PY{p}{]}\PY{o}{+}\PY{p}{(}m\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{o}{*}k\PY{p}{,}by\PY{o}{=}k\PY{p}{)}\PY{p}{)}\PY{p}{,}m\PY{l+m}{+1}\PY{p}{)}
+		p\PY{o}{\PYZlt{}\PYZhy{}}k.blocks\PY{p}{[}\PY{l+m}{1}\PY{p}{]}
+		\PY{k+kp}{q}\PY{o}{\PYZlt{}\PYZhy{}}k.blocks\PY{p}{[}nx\PY{l+m}{+2}\PY{p}{]}
+		g\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
+		h\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
+		r\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
+		i\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{1}
+		j\PY{o}{\PYZlt{}\PYZhy{}}nx
+		\PY{k+kr}{while}\PY{p}{(}i\PY{o}{\PYZlt{}=}nx\PY{p}{)}\PY{p}{\PYZob{}}
+			this.p\PY{o}{\PYZlt{}\PYZhy{}}k.blocks\PY{p}{[}i\PY{l+m}{+1}\PY{p}{]}
+			this.q\PY{o}{\PYZlt{}\PYZhy{}}k.blocks\PY{p}{[}j\PY{l+m}{+1}\PY{p}{]}
+			\PY{k+kr}{if}\PY{p}{(}p\PY{o}{==}this.p\PY{p}{)}\PY{p}{\PYZob{}}
+				g\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{min}\PY{p}{(}g\PY{p}{[}i\PY{l+m}{\PYZhy{}1}\PY{p}{]}\PY{p}{,}f\PY{p}{[}i\PY{p}{]}\PY{p}{)}
+			\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}}
+				g\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}f\PY{p}{[}i\PY{p}{]}
+			\PY{p}{\PYZcb{}}
+			\PY{k+kr}{if}\PY{p}{(}q\PY{o}{==}this.q\PY{p}{)}\PY{p}{\PYZob{}}
+				h\PY{p}{[}j\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{min}\PY{p}{(}h\PY{p}{[}j\PY{l+m}{+1}\PY{p}{]}\PY{p}{,}f\PY{p}{[}j\PY{p}{]}\PY{p}{)}
+			\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}}
+				h\PY{p}{[}j\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}f\PY{p}{[}j\PY{p}{]}
+			\PY{p}{\PYZcb{}}
+			p\PY{o}{\PYZlt{}\PYZhy{}}this.p
+			\PY{k+kp}{q}\PY{o}{\PYZlt{}\PYZhy{}}this.q
+			i\PY{o}{\PYZlt{}\PYZhy{}}i\PY{l+m}{+1}
+			j\PY{o}{\PYZlt{}\PYZhy{}}j\PY{l+m}{\PYZhy{}1}
+		\PY{p}{\PYZcb{}}
+		k.left\PY{o}{\PYZlt{}\PYZhy{}}k\PY{o}{/}\PY{l+m}{2}
+		low.bound.index\PY{o}{\PYZlt{}\PYZhy{}}nx\PY{o}{\PYZhy{}}\PY{k+kp}{rev}\PY{p}{(}\PY{k+kp}{findInterval}\PY{p}{(}\PY{k+kp}{rev}\PY{p}{(}\PY{o}{\PYZhy{}}x\PY{p}{)}\PY{p}{,}\PY{k+kp}{rev}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}x\PY{o}{+}k.left\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{l+m}{+1}
+		upp.bound.index\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{findInterval}\PY{p}{(}x\PY{o}{+}k.left\PY{p}{,}x\PY{p}{)}
+		out.vector\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{pmin}\PY{p}{(}h\PY{p}{[}low.bound.index\PY{p}{]}\PY{p}{,}g\PY{p}{[}upp.bound.index\PY{p}{]}\PY{p}{)}
+		which.low\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{which}\PY{p}{(}k.blocks\PY{p}{[}low.bound.index\PY{p}{]}\PY{o}{==}k.blocks\PY{p}{[}upp.bound.index\PY{l+m}{+1}\PY{p}{]}\PY{p}{)}
+		out.vector\PY{p}{[}which.low\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}h\PY{p}{[}low.bound.index\PY{p}{[}which.low\PY{p}{]]}
+		which.hi\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{which}\PY{p}{(}k.blocks\PY{p}{[}low.bound.index\PY{l+m}{+1}\PY{p}{]}\PY{o}{==}k.blocks\PY{p}{[}upp.bound.index\PY{l+m}{+2}\PY{p}{]}\PY{p}{)}
+		out.vector\PY{p}{[}which.hi\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}g\PY{p}{[}upp.bound.index\PY{p}{[}which.hi\PY{p}{]]}
+		\PY{k+kr}{if}\PY{p}{(}isAppend\PY{p}{)} out.vector\PY{o}{\PYZlt{}\PYZhy{}}out.vector\PY{p}{[}\PY{o}{\PYZhy{}}nx\PY{p}{]}
+		\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Completed morphological erosion (cts scale) in\PYZdq{}}
+			\PY{p}{,}\PY{k+kp}{sprintf}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZpc{}.2f\PYZdq{}}\PY{p}{,}\PY{k+kp}{proc.time}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m}{3}\PY{p}{]}\PY{o}{\PYZhy{}}t1\PY{p}{)}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{seconds \PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{k+kr}{return}\PY{p}{(}out.vector\PY{p}{)}
+	\PY{p}{\PYZcb{}}		
+\PY{p}{\PYZcb{}}
+\end{Verbatim}

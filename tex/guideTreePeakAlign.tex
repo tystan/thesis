@@ -1,0 +1,191 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Function \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{} }
+\PY{c+c1}{\PYZsh{} guideTreePeakAlign(): for peak list data, create successive N\PYZhy{} and M\PYZhy{}alignments}
+\PY{c+c1}{\PYZsh{}              until all spectra are aligned.}
+\PY{c+c1}{\PYZsh{} }
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Input \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}}
+\PY{c+c1}{\PYZsh{} msD: MS Data, a $T x n$ matrix of MS intensities. One column per spectra.}
+\PY{c+c1}{\PYZsh{} peaklistlist: see below}
+\PY{c+c1}{\PYZsh{} in.param: [ D expon lambda G maxM ]\PYZhy{}tuple as a vector}
+\PY{c+c1}{\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Output \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} A list containing the following elements:}
+\PY{c+c1}{\PYZsh{} dendro: }
+\PY{c+c1}{\PYZsh{} stepwise.peaks: a list where each element is the successive amalgamation data}
+\PY{c+c1}{\PYZsh{} amalpeaks: the final matrix of aligned peaks. Columns are named spectra, rows}
+\PY{c+c1}{\PYZsh{}    are}
+\PY{c+c1}{\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} peaklistlist=}
+\PY{c+c1}{\PYZsh{} [[1]]}
+\PY{c+c1}{\PYZsh{} [t\PYZus{}\PYZob{}1,1\PYZcb{} t\PYZus{}\PYZob{}1,2\PYZcb{} ... t\PYZus{}\PYZob{}1,n\PYZus{}1\PYZcb{} ]}
+\PY{c+c1}{\PYZsh{} [x\PYZus{}\PYZob{}1,1\PYZcb{} x\PYZus{}\PYZob{}1,2\PYZcb{} ... x\PYZus{}\PYZob{}1,n\PYZus{}1\PYZcb{} ]}
+\PY{c+c1}{\PYZsh{} }
+\PY{c+c1}{\PYZsh{} [[2]]}
+\PY{c+c1}{\PYZsh{} [t\PYZus{}\PYZob{}2,1\PYZcb{} t\PYZus{}\PYZob{}2,2\PYZcb{} ... t\PYZus{}\PYZob{}2,n\PYZus{}2\PYZcb{} ]}
+\PY{c+c1}{\PYZsh{} [x\PYZus{}\PYZob{}2,1\PYZcb{} x\PYZus{}\PYZob{}2,2\PYZcb{} ... x\PYZus{}\PYZob{}2,n\PYZus{}2\PYZcb{} ]}
+\PY{c+c1}{\PYZsh{} }
+\PY{c+c1}{\PYZsh{} .}
+\PY{c+c1}{\PYZsh{} .}
+\PY{c+c1}{\PYZsh{} .}
+\PY{c+c1}{\PYZsh{} }
+\PY{c+c1}{\PYZsh{} [[N]]}
+\PY{c+c1}{\PYZsh{} [t\PYZus{}\PYZob{}N,1\PYZcb{} t\PYZus{}\PYZob{}N,2\PYZcb{} ... t\PYZus{}\PYZob{}N,n\PYZus{}N\PYZcb{} ]}
+\PY{c+c1}{\PYZsh{} [x\PYZus{}\PYZob{}N,1\PYZcb{} x\PYZus{}\PYZob{}N,2\PYZcb{} ... x\PYZus{}\PYZob{}N,n\PYZus{}N\PYZcb{} ]}
+\PY{c+c1}{\PYZsh{} }
+\PY{c+c1}{\PYZsh{} where t\PYZus{}\PYZob{}i,j\PYZcb{} is the time point j\PYZhy{}th peak for the i\PYZhy{}th spectrum}
+\PY{c+c1}{\PYZsh{} where x\PYZus{}\PYZob{}i,j\PYZcb{} is the vector of intensities (nComp long i.e. nComp x 1 matrix) }
+\PY{c+c1}{\PYZsh{} 				for the j\PYZhy{}th peak for the i\PYZhy{}th spectrum}
+\PY{c+c1}{\PYZsh{} NB: each list item is a ($n_{Comp}$+1) x $n_N$ matrix}
+
+guideTreePeakAlign\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}msD\PY{p}{,}peaklistlist\PY{p}{,}in.param\PY{p}{)}
+\PY{p}{\PYZob{}}
+
+	D\PY{o}{\PYZlt{}\PYZhy{}}in.param\PY{p}{[}\PY{l+m}{1}\PY{p}{]}
+	nC\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{nrow}\PY{p}{(}peaklistlist\PY{p}{[[}\PY{l+m}{1}\PY{p}{]]}\PY{p}{)}\PY{l+m}{\PYZhy{}1}
+	expon\PY{o}{\PYZlt{}\PYZhy{}}in.param\PY{p}{[}\PY{l+m}{2}\PY{p}{]}
+	lambda\PY{o}{\PYZlt{}\PYZhy{}}in.param\PY{p}{[}\PY{l+m}{3}\PY{p}{]}
+	G\PY{o}{\PYZlt{}\PYZhy{}}in.param\PY{p}{[}\PY{l+m}{4}\PY{p}{]}
+	maxM\PY{o}{\PYZlt{}\PYZhy{}}in.param\PY{p}{[}\PY{l+m}{5}\PY{p}{]}
+	
+	nPat\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}peaklistlist\PY{p}{)}
+	Pats\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{1}\PY{o}{:}nPat
+	
+	\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Calculating merge sequence for spectra \PYZbs{}n\PYZdq{}}\PY{p}{)}
+		
+	fordist\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{t}\PY{p}{(}msD\PY{o}{\PYZdl{}}intensity\PY{p}{)}
+	hc\PY{o}{\PYZlt{}\PYZhy{}}hclust\PY{p}{(}as.dist\PY{p}{(}fordist\PY{p}{,}diag\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{,}upper\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{average\PYZdq{}}\PY{p}{)}
+	
+	\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} find amalgamation sequence}
+	\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} see ?hclust for information on the merge matrix:}
+	\PY{c+c1}{\PYZsh{}    \PYZdq{}an n\PYZhy{}1 by 2 matrix. Row i of merge describes the merging of clusters }
+	\PY{c+c1}{\PYZsh{}    at step i of the clustering. If an element j in the row is negative, }
+	\PY{c+c1}{\PYZsh{}    then observation \PYZhy{}j was merged at this stage. If j is positive then }
+	\PY{c+c1}{\PYZsh{}    the merge was with the cluster formed at the (earlier) stage j of the }
+	\PY{c+c1}{\PYZsh{}    algorithm. Thus negative entries in merge indicate agglomerations of }
+	\PY{c+c1}{\PYZsh{}    singletons, and positive entries indicate agglomerations of }
+	\PY{c+c1}{\PYZsh{}    non\PYZhy{}singletons.\PYZdq{}}
+	amalg\PY{o}{\PYZlt{}\PYZhy{}}hc\PY{o}{\PYZdl{}}\PY{k+kp}{merge}
+
+	nAmal\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{nrow}\PY{p}{(}amalg\PY{p}{)}
+	\PY{c+c1}{\PYZsh{} alignment of peaklistlist (a.pll)}
+	a.pll\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{vector}\PY{p}{(}length\PY{o}{=}nAmal\PY{p}{,}mode\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{list\PYZdq{}}\PY{p}{)}
+	Npeaks\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+	Npeaklist\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+	Mpeaks\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+	Mpeaklist\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+	
+	\PY{c+c1}{\PYZsh{} start}
+	\PY{k+kr}{for}\PY{p}{(}aindx \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nAmal\PY{p}{)}
+	\PY{p}{\PYZob{}}
+	
+		\PY{c+c1}{\PYZsh{} if patsToGetN or patsToGetM are positive,}
+		\PY{c+c1}{\PYZsh{}    ... it is a single spectrum (1\PYZhy{}alignment)}
+		\PY{c+c1}{\PYZsh{} if negative, it is a previous N/M\PYZhy{}alignment (N,M\PYZgt{}1) }
+		patsToGetN\PY{o}{\PYZlt{}\PYZhy{}}\PY{o}{\PYZhy{}}amalg\PY{p}{[}aindx\PY{p}{,}\PY{l+m}{1}\PY{p}{]} 
+		patsToGetM\PY{o}{\PYZlt{}\PYZhy{}}\PY{o}{\PYZhy{}}amalg\PY{p}{[}aindx\PY{p}{,}\PY{l+m}{2}\PY{p}{]}
+		
+		printPatsN\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{sprintf}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZpc{}03d\PYZdq{}}\PY{p}{,}patsToGetN\PY{p}{)}
+		printPatsM\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{sprintf}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZpc{}03d\PYZdq{}}\PY{p}{,}patsToGetM\PY{p}{)}
+		amalg.str\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{Amalgamting patient\PYZdq{}}
+		\PY{k+kr}{if}\PY{p}{(}patsToGetN\PY{o}{\PYZgt{}}\PY{l+m}{0} \PY{o}{\PYZam{}\PYZam{}} patsToGetM\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)}\PY{p}{\PYZob{}}
+			\PY{k+kp}{cat}\PY{p}{(}amalg.str\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{s \PYZdq{}}\PY{p}{,}printPatsN\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{ and \PYZdq{}}\PY{p}{,}printPatsM\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{,}sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+		\PY{p}{\PYZcb{}}\PY{k+kr}{else} \PY{k+kr}{if}\PY{p}{(}patsToGetN\PY{o}{\PYZgt{}}\PY{l+m}{0} \PY{o}{\PYZam{}\PYZam{}} patsToGetM\PY{o}{\PYZlt{}}\PY{l+m}{0}\PY{p}{)}\PY{p}{\PYZob{}} 
+			\PY{k+kp}{cat}\PY{p}{(}amalg.str\PY{p}{,}printPatsN\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{to previously amalgamated patients\PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{p}{\PYZcb{}}\PY{k+kr}{else} \PY{k+kr}{if}\PY{p}{(}patsToGetN\PY{o}{\PYZlt{}}\PY{l+m}{0} \PY{o}{\PYZam{}\PYZam{}} patsToGetM\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)}\PY{p}{\PYZob{}} 
+			\PY{k+kp}{cat}\PY{p}{(}amalg.str\PY{p}{,}printPatsM\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{to previously amalgamated patients\PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}} 
+			\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Amalgamting two clusters of previously amalgamated patients\PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{p}{\PYZcb{}}
+		
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} prepare N\PYZhy{}Alignment data}
+		\PY{k+kr}{if}\PY{p}{(}patsToGetN\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)}\PY{p}{\PYZob{}} \PY{c+c1}{\PYZsh{} if a single spectrum (1\PYZhy{}alignment)}
+			Npeaks\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{k+kp}{ncol}\PY{p}{(}peaklistlist\PY{p}{[[}patsToGetN\PY{p}{]]}\PY{p}{)}\PY{p}{,}ncol\PY{o}{=}\PY{l+m}{1}\PY{p}{)}
+			Npeaklist\PY{o}{\PYZlt{}\PYZhy{}}peaklistlist\PY{p}{[}patsToGetN\PY{p}{]}
+		\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}} \PY{c+c1}{\PYZsh{} if a previously aligned N\PYZhy{}alignment (N\PYZgt{}1)}
+			Npeaks\PY{o}{\PYZlt{}\PYZhy{}}a.pll\PY{p}{[[}\PY{o}{\PYZhy{}}patsToGetN\PY{p}{]]}
+			patsToGetN\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.numeric}\PY{p}{(}\PY{k+kp}{colnames}\PY{p}{(}Npeaks\PY{p}{)}\PY{p}{)}
+			Npeaklist\PY{o}{\PYZlt{}\PYZhy{}}peaklistlist\PY{p}{[}patsToGetN\PY{p}{]}
+		\PY{p}{\PYZcb{}}
+
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} prepare M\PYZhy{}Alignment data}
+		\PY{k+kr}{if}\PY{p}{(}patsToGetM\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)}\PY{p}{\PYZob{}} \PY{c+c1}{\PYZsh{} if a single spectrum (1\PYZhy{}alignment)}
+			Mpeaks\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{1}\PY{o}{:}\PY{k+kp}{ncol}\PY{p}{(}peaklistlist\PY{p}{[[}patsToGetM\PY{p}{]]}\PY{p}{)}\PY{p}{,}ncol\PY{o}{=}\PY{l+m}{1}\PY{p}{)}
+			Mpeaklist\PY{o}{\PYZlt{}\PYZhy{}}peaklistlist\PY{p}{[}patsToGetM\PY{p}{]}
+		\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}} \PY{c+c1}{\PYZsh{} if a previously aligned M\PYZhy{}alignment (M\PYZgt{}1)}
+			Mpeaks\PY{o}{\PYZlt{}\PYZhy{}}a.pll\PY{p}{[[}\PY{o}{\PYZhy{}}patsToGetM\PY{p}{]]}
+			patsToGetM\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.numeric}\PY{p}{(}\PY{k+kp}{colnames}\PY{p}{(}Mpeaks\PY{p}{)}\PY{p}{)}
+			Mpeaklist\PY{o}{\PYZlt{}\PYZhy{}}peaklistlist\PY{p}{[}patsToGetM\PY{p}{]}
+		\PY{p}{\PYZcb{}}
+		
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} use Wmatrix() function}
+		Wm\PY{o}{\PYZlt{}\PYZhy{}}Wmatrix\PY{p}{(}Npeaks\PY{p}{,}Npeaklist\PY{p}{,}Mpeaks\PY{p}{,}Mpeaklist\PY{p}{,}D\PY{p}{,}expon\PY{p}{,}lambda\PY{p}{)}
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} use S\PYZhy{}W alignment function to estimate maximum path}
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} see: https://code.google.com/p/swalign/}
+		estPM\PY{o}{\PYZlt{}\PYZhy{}}SWalign\PY{p}{(}Wm\PY{p}{,}G\PY{p}{,}maxM\PY{p}{)} 
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} estPM is a data.frame of (i,j) locations of the maximum path}
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} the data.frame is 2 columns for i,j points}
+		
+		nN\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{ncol}\PY{p}{(}Npeaks\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} no. of peaks in N\PYZhy{}align}
+		nM\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{ncol}\PY{p}{(}Mpeaks\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} no. of peaks in M\PYZhy{}align}
+		nK\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{nrow}\PY{p}{(}estPM\PY{p}{)}  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} no. of peaks in new N:M\PYZhy{}align}
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} apllTemp: }
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}      (a)lignment of (p)eak (l)ist (l)ist, (temp)orary}
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Matrix of peak indicators. The $n_K$ rows represent the $n_K$ peaks }
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}    from the N:M\PYZhy{}alignment. }
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Entries apllTemp[i,j] are ==}
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} \PYZob{} 0 if that N:M\PYZhy{}aligned peak does not exist in spec $j$ (column $j$)}
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} \PYZob{} \PYZus{}else\PYZus{} a non\PYZhy{}zero indicator, the peak number from within the  }
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}                           1\PYZhy{}alignment from spectrum $j$ (column $j$)}
+		apllTemp\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nrow\PY{o}{=}nK\PY{p}{,}ncol\PY{o}{=}nN\PY{o}{+}nM\PY{p}{)}
+		mzValsTemp\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+		AveMzValsTemp\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+		\PY{k+kr}{for}\PY{p}{(}n.k \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nK\PY{p}{)}
+		\PY{p}{\PYZob{}}
+			\PY{k+kr}{if}\PY{p}{(}estPM\PY{p}{[}n.k\PY{p}{,}\PY{l+m}{1}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{} if the peak exists in the N\PYZhy{}alignment}
+			\PY{p}{\PYZob{}}
+				\PY{c+c1}{\PYZsh{} transfer peak info from N\PYZhy{}align to new N:M\PYZhy{}align matrix}
+				apllTemp\PY{p}{[}n.k\PY{p}{,}\PY{l+m}{1}\PY{o}{:}nN\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}Npeaks\PY{p}{[}estPM\PY{p}{[}n.k\PY{p}{,}\PY{l+m}{1}\PY{p}{]}\PY{p}{,}\PY{p}{]}
+				\PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nN\PY{p}{)} \PY{k+kr}{if}\PY{p}{(}apllTemp\PY{p}{[}n.k\PY{p}{,}i\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)} mzValsTemp\PY{o}{\PYZlt{}\PYZhy{}}
+						\PY{k+kt}{c}\PY{p}{(}mzValsTemp\PY{p}{,}Npeaklist\PY{p}{[[}i\PY{p}{]]}\PY{p}{[}\PY{l+m}{1}\PY{p}{,}apllTemp\PY{p}{[}n.k\PY{p}{,}i\PY{p}{]]}\PY{p}{)}
+			\PY{p}{\PYZcb{}}
+			\PY{k+kr}{if}\PY{p}{(}estPM\PY{p}{[}n.k\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{} if the peak exists in the M\PYZhy{}alignment}
+			\PY{p}{\PYZob{}}
+				\PY{c+c1}{\PYZsh{} transfer peak info from N\PYZhy{}align to new N:M\PYZhy{}align matrix}
+				apllTemp\PY{p}{[}n.k\PY{p}{,}\PY{p}{(}nN\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{p}{(}nN\PY{o}{+}nM\PY{p}{)}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}Mpeaks\PY{p}{[}estPM\PY{p}{[}n.k\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{,}\PY{p}{]}
+				\PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{p}{(}nN\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{p}{(}nN\PY{o}{+}nM\PY{p}{)}\PY{p}{)} \PY{k+kr}{if}\PY{p}{(}apllTemp\PY{p}{[}n.k\PY{p}{,}i\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)} mzValsTemp\PY{o}{\PYZlt{}\PYZhy{}}
+						\PY{k+kt}{c}\PY{p}{(}mzValsTemp\PY{p}{,}Mpeaklist\PY{p}{[[}i\PY{o}{\PYZhy{}}nN\PY{p}{]]}\PY{p}{[}\PY{l+m}{1}\PY{p}{,}apllTemp\PY{p}{[}n.k\PY{p}{,}i\PY{p}{]]}\PY{p}{)}
+			\PY{p}{\PYZcb{}}
+			\PY{c+c1}{\PYZsh{} get ave m/z of all aligned peaks}
+			AveMzValsTemp\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{c}\PY{p}{(}AveMzValsTemp\PY{p}{,}\PY{k+kp}{mean}\PY{p}{(}mzValsTemp\PY{p}{)}\PY{p}{)} 
+			mzValsTemp\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+		\PY{p}{\PYZcb{}}
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} change row order if averaging m/z has changed peak location order}
+		mzReOrder\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{order}\PY{p}{(}AveMzValsTemp\PY{p}{)}
+		apllTemp\PY{o}{\PYZlt{}\PYZhy{}}apllTemp\PY{p}{[}mzReOrder\PY{p}{,}\PY{p}{]}
+		
+		allPat\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{c}\PY{p}{(}patsToGetN\PY{p}{,}patsToGetM\PY{p}{)}
+		\PY{k+kp}{colnames}\PY{p}{(}apllTemp\PY{p}{)}\PY{o}{\PYZlt{}\PYZhy{}}allPat
+		\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} clean up N:M\PYZhy{}alignment to preserve spectrum order}
+		patOrder\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{order}\PY{p}{(}allPat\PY{p}{)}
+		apllTemp\PY{o}{\PYZlt{}\PYZhy{}}apllTemp\PY{p}{[}\PY{p}{,}patOrder\PY{p}{]}
+		
+		a.pll\PY{p}{[[}aindx\PY{p}{]]}\PY{o}{\PYZlt{}\PYZhy{}}apllTemp
+	\PY{p}{\PYZcb{}}
+	\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} return list() object of peak amalgamation/alignment,}
+	\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}     including intermediate steps}
+	outlist\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{list}\PY{p}{(}dendro\PY{o}{=}hc\PY{p}{,}stepwise.peaks\PY{o}{=}a.pll\PY{p}{[}\PY{o}{\PYZhy{}}nAmal\PY{p}{]}\PY{p}{,}amalpeaks\PY{o}{=}a.pll\PY{p}{[[}nAmal\PY{p}{]]}\PY{p}{)}
+	\PY{k+kr}{return}\PY{p}{(}outlist\PY{p}{)}
+
+\PY{p}{\PYZcb{}}
+\end{Verbatim}

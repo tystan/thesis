@@ -1,0 +1,50 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
+erode.quick\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}f\PY{p}{,}se.size\PY{p}{)}\PY{p}{\PYZob{}}
+	nx\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}f\PY{p}{)}
+	k\PY{o}{\PYZlt{}\PYZhy{}}se.size
+	t1\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{proc.time}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m}{3}\PY{p}{]} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} get start time}
+	\PY{k+kr}{if}\PY{p}{(}k\PY{o}{\PYZgt{}=}nx\PY{p}{)}\PY{p}{\PYZob{}}
+		\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Warning: structuring element is \PYZgt{}= in length as the input\PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{The input vector has been output \PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{k+kr}{return}\PY{p}{(}f\PY{p}{)}
+	\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}}
+		\PY{k+kr}{if}\PY{p}{(}\PY{p}{(}k\PY{o}{\PYZpc{}\PYZpc{}}\PY{l+m}{2}\PY{p}{)} \PY{o}{!=} \PY{l+m}{1}\PY{p}{)}\PY{p}{\PYZob{}}
+			k\PY{o}{\PYZlt{}\PYZhy{}}k\PY{l+m}{\PYZhy{}1}
+			\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Structring Element not symmetric, using SE length \PYZhy{}1 =\PYZdq{}}\PY{p}{,}k\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{p}{\PYZcb{}}
+		k.left\PY{o}{\PYZlt{}\PYZhy{}}\PY{p}{(}k\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{o}{/}\PY{l+m}{2}
+		add.pix\PY{o}{\PYZlt{}\PYZhy{}}k\PY{o}{\PYZhy{}}\PY{p}{(}nx\PY{o}{\PYZpc{}\PYZpc{}}k\PY{p}{)}
+		isMultiple\PY{o}{\PYZlt{}\PYZhy{}}\PY{p}{(}add.pix\PY{o}{==}k\PY{p}{)}
+		\PY{k+kr}{if}\PY{p}{(}\PY{o}{!}isMultiple\PY{p}{)}\PY{p}{\PYZob{}}
+			f\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{c}\PY{p}{(}f\PY{p}{,}\PY{k+kp}{rep}\PY{p}{(}\PY{o}{+}\PY{k+kc}{Inf}\PY{p}{,}add.pix\PY{p}{)}\PY{p}{)}
+			rem.indxs\PY{o}{\PYZlt{}\PYZhy{}}\PY{p}{(}nx\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{p}{(}nx\PY{o}{+}add.pix\PY{p}{)}
+			nx\PY{o}{\PYZlt{}\PYZhy{}}nx\PY{o}{+}add.pix
+		\PY{p}{\PYZcb{}}
+		g\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
+		h\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
+		r\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
+		j\PY{o}{\PYZlt{}\PYZhy{}}nx
+		\PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nx\PY{p}{)}\PY{p}{\PYZob{}}
+			\PY{k+kr}{if}\PY{p}{(}i\PY{o}{\PYZpc{}\PYZpc{}}k\PY{o}{==}\PY{l+m}{1}\PY{p}{)}\PY{p}{\PYZob{}}
+				g\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}f\PY{p}{[}i\PY{p}{]}
+			\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}}
+				g\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{min}\PY{p}{(}g\PY{p}{[}i\PY{l+m}{\PYZhy{}1}\PY{p}{]}\PY{p}{,}f\PY{p}{[}i\PY{p}{]}\PY{p}{)}
+			\PY{p}{\PYZcb{}}
+			\PY{k+kr}{if}\PY{p}{(}j\PY{o}{\PYZpc{}\PYZpc{}}k\PY{o}{==}\PY{l+m}{0}\PY{p}{)}\PY{p}{\PYZob{}}
+				h\PY{p}{[}j\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}f\PY{p}{[}j\PY{p}{]}
+			\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}}
+				h\PY{p}{[}j\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{min}\PY{p}{(}h\PY{p}{[}j\PY{l+m}{+1}\PY{p}{]}\PY{p}{,}f\PY{p}{[}j\PY{p}{]}\PY{p}{)}
+			\PY{p}{\PYZcb{}}
+			j\PY{o}{\PYZlt{}\PYZhy{}}j\PY{l+m}{\PYZhy{}1}
+		\PY{p}{\PYZcb{}}
+		r\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{p}{(}k.left\PY{l+m}{+1}\PY{p}{)}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}g\PY{p}{[}\PY{p}{(}k.left\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}k\PY{p}{]}
+		r\PY{p}{[}\PY{p}{(}k.left\PY{l+m}{+2}\PY{p}{)}\PY{o}{:}\PY{p}{(}nx\PY{o}{\PYZhy{}}k.left\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{pmin}\PY{p}{(}g\PY{p}{[}\PY{p}{(}k\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{p}{(}nx\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{p}{]}\PY{p}{,}h\PY{p}{[}\PY{l+m}{2}\PY{o}{:}\PY{p}{(}nx\PY{o}{\PYZhy{}}k\PY{p}{)}\PY{p}{]}\PY{p}{)}
+		r\PY{p}{[}\PY{p}{(}nx\PY{o}{\PYZhy{}}k.left\PY{p}{)}\PY{o}{:}nx\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}h\PY{p}{[}\PY{p}{(}nx\PY{o}{\PYZhy{}}k\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{p}{(}nx\PY{o}{\PYZhy{}}k.left\PY{p}{)}\PY{p}{]}
+		\PY{k+kr}{if}\PY{p}{(}\PY{o}{!}isMultiple\PY{p}{)} r\PY{o}{\PYZlt{}\PYZhy{}}r\PY{p}{[}\PY{o}{\PYZhy{}}rem.indxs\PY{p}{]}
+		
+		delta.t\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{sprintf}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZpc{}.2f\PYZdq{}}\PY{p}{,}\PY{k+kp}{proc.time}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m}{3}\PY{p}{]}\PY{o}{\PYZhy{}}t1\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} time elapsed}
+		\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Completed morphological erosion in\PYZdq{}}\PY{p}{,}delta.t\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{seconds\PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{k+kr}{return}\PY{p}{(}r\PY{p}{)}
+	\PY{p}{\PYZcb{}}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}

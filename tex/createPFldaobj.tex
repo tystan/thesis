@@ -1,0 +1,126 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} FUNCTION: createPFldaobj()}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} estimate parameters of PF\PYZhy{}DA model, so that a discrim function created}
+
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} input:}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} X: a n x p matrix, of n obs and p variables}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Xclass: a vector of length n of the classes (must be a factor variable)}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} priors: a vector of length K (\PYZsh{}classes) with elements in (0,1)}
+
+createPFldaobj\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}X\PY{p}{,}Xclass\PY{p}{,}lambdar\PY{o}{=}\PY{l+m}{1}\PY{p}{,}priors\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{,}alph\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{,}wts\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{)}
+\PY{p}{\PYZob{}}
+  N\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}Xclass\PY{p}{)}
+  P\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{ncol}\PY{p}{(}X\PY{p}{)}
+  nks\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{table}\PY{p}{(}Xclass\PY{p}{)}
+  classnames\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{levels}\PY{p}{(}Xclass\PY{p}{)}
+  K\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}classnames\PY{p}{)}
+  
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} if not supplied, make $\hat{\pi}_k$ data proportions}
+  \PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{is.null}\PY{p}{(}priors\PY{p}{)}\PY{p}{)} priors\PY{o}{\PYZlt{}\PYZhy{}}nks\PY{o}{/}N
+  
+  \PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{length}\PY{p}{(}priors\PY{p}{)}\PY{o}{!=}K\PY{p}{)}\PY{p}{\PYZob{}}
+    \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{The length of priors and the total number }
+\PY{l+s}{        of groups must be equal \PYZbs{}n\PYZdq{}}\PY{p}{)}
+    \PY{k+kr}{return}\PY{p}{(}\PY{k+kc}{NULL}\PY{p}{)}
+  \PY{p}{\PYZcb{}}\PY{k+kr}{else} \PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{is.null}\PY{p}{(}alph\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}N\PY{o}{\PYZlt{}}P\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+    \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Alpha is suggested for n\PYZlt{}p data \PYZbs{}n\PYZdq{}}\PY{p}{)}
+  \PY{p}{\PYZcb{}}\PY{k+kr}{else} \PY{k+kr}{if}\PY{p}{(}N\PY{o}{!=}\PY{k+kp}{nrow}\PY{p}{(}X\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+    \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{The length of Xclass and the number }
+\PY{l+s}{        of rows in X must agree \PYZbs{}n\PYZdq{}}\PY{p}{)}
+    \PY{k+kr}{return}\PY{p}{(}\PY{k+kc}{NULL}\PY{p}{)}
+  \PY{p}{\PYZcb{}}\PY{k+kr}{else} \PY{k+kr}{if}\PY{p}{(}\PY{o}{!}\PY{k+kp}{all}\PY{p}{(}nks\PY{o}{\PYZgt{}}\PY{l+m}{1}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+    \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{There needs to be at least two obs in each }
+\PY{l+s}{        group for variances to be computed \PYZbs{}n\PYZdq{}}\PY{p}{)}
+    \PY{k+kr}{return}\PY{p}{(}\PY{k+kc}{NULL}\PY{p}{)}
+  \PY{p}{\PYZcb{}}
+
+  Xclassint\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.integer}\PY{p}{(}Xclass\PY{p}{)}
+  transMeans\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{colMeans}\PY{p}{(}X\PY{p}{)}
+  X\PY{o}{\PYZlt{}\PYZhy{}}X\PY{o}{\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}transMeans\PY{p}{,}N\PY{p}{)}\PY{p}{,}nrow\PY{o}{=}N\PY{p}{,}byrow\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{)}
+
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} create $\mu_k=\left[\mu_{k1},\hdots,\mu_{kp}\right]$ vectors}
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} place on top of each other to get KxP matrix}
+  MuMat\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nrow\PY{o}{=}K\PY{p}{,}ncol\PY{o}{=}P\PY{p}{)}
+  \PY{k+kr}{for}\PY{p}{(}k \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}K\PY{p}{)} MuMat\PY{p}{[}k\PY{p}{,}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{colMeans}\PY{p}{(}X\PY{p}{[}Xclassint\PY{o}{==}k\PY{p}{,}\PY{p}{]}\PY{p}{)}
+  MuIter\PY{o}{\PYZlt{}\PYZhy{}}MuMat
+
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} create $\Sigma$}
+  Sigma\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nrow\PY{o}{=}P\PY{p}{,}ncol\PY{o}{=}P\PY{p}{)}
+  \PY{k+kr}{for}\PY{p}{(}k \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}K\PY{p}{)} 
+  \PY{p}{\PYZob{}}
+    rowuse\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{which}\PY{p}{(}Xclassint\PY{o}{==}k\PY{p}{)}
+    Sigma\PY{o}{\PYZlt{}\PYZhy{}}Sigma\PY{o}{+}\PY{k+kp}{length}\PY{p}{(}rowuse\PY{p}{)}\PY{o}{*}cov.wt\PY{p}{(}X\PY{p}{[}rowuse\PY{p}{,}\PY{p}{]}\PY{p}{,}cor\PY{o}{=}\PY{k+kc}{FALSE}
+                                      \PY{p}{,}center\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}method\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{ML\PYZdq{}}\PY{p}{)}\PY{o}{\PYZdl{}}cov
+  \PY{p}{\PYZcb{}}
+  Sigma\PY{o}{\PYZlt{}\PYZhy{}}Sigma\PY{o}{/}N
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} extract Diag elements}
+  sigmasqs\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{diag}\PY{p}{(}Sigma\PY{p}{)}
+  
+  \PY{k+kr}{if}\PY{p}{(}\PY{o}{!}\PY{p}{(}\PY{k+kp}{is.null}\PY{p}{(}alph\PY{p}{)} \PY{o}{|} \PY{k+kp}{is.null}\PY{p}{(}wts\PY{p}{)}\PY{p}{)}\PY{p}{)} sigmasqs\PY{o}{\PYZlt{}\PYZhy{}}sigmasqs\PY{o}{+}alph\PY{o}{*}wts
+  \PY{k+kr}{else} \PY{k+kr}{if}\PY{p}{(}\PY{o}{!}\PY{k+kp}{is.null}\PY{p}{(}alph\PY{p}{)}\PY{p}{)} sigmasqs\PY{o}{\PYZlt{}\PYZhy{}}sigmasqs\PY{o}{+}\PY{k+kp}{rep}\PY{p}{(}alph\PY{p}{,}P\PY{p}{)}
+  
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Now start iterative estimation of the $\ell_1$ penalised means}
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Note \PYZdq{}squig\PYZdq{} is used for the ML estimates}
+  G\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nrow\PY{o}{=}K\PY{p}{,}ncol\PY{o}{=}K\PY{p}{)}
+  deltatol\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{1e\PYZhy{}10}
+  deltaMu\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{1}
+  maxIter\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{500}
+  itcount\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{0}
+  \PY{k+kr}{while}\PY{p}{(}deltaMu\PY{o}{\PYZgt{}}\PY{p}{(}\PY{l+m}{1e\PYZhy{}5}\PY{p}{)} \PY{o}{\PYZam{}\PYZam{}} itcount\PY{o}{\PYZlt{}}maxIter\PY{p}{)}
+  \PY{p}{\PYZob{}}
+    deltaMuNumer\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{0}
+    deltaMuDenom\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{0}
+    itcount\PY{o}{\PYZlt{}\PYZhy{}}itcount\PY{l+m}{+1}
+    
+    \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} For each of the features}
+    \PY{k+kr}{for}\PY{p}{(}j \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}P\PY{p}{)} 
+    \PY{p}{\PYZob{}}
+      beta.t.j\PY{o}{\PYZlt{}\PYZhy{}}MuIter\PY{p}{[}\PY{p}{,}j\PY{p}{]}
+      musqig.j\PY{o}{\PYZlt{}\PYZhy{}}MuMat\PY{p}{[}\PY{p}{,}j\PY{p}{]}
+      sqigY\PY{o}{\PYZlt{}\PYZhy{}}X\PY{p}{[}\PY{p}{,}j\PY{p}{]}
+      sqigX\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nrow\PY{o}{=}N\PY{p}{,}ncol\PY{o}{=}K\PY{p}{)}
+      G\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nrow\PY{o}{=}K\PY{p}{,}ncol\PY{o}{=}K\PY{p}{)}
+      
+      \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} $\sum_{k=1}^{K-1}\sum_{k_{dash}=k+1}^K$}
+      \PY{k+kr}{for}\PY{p}{(}k \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}\PY{p}{(}K\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{p}{)}
+      \PY{p}{\PYZob{}}
+        \PY{k+kr}{for}\PY{p}{(}kdash \PY{k+kr}{in} \PY{p}{(}k\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}K\PY{p}{)}
+        \PY{p}{\PYZob{}}
+          PFweight\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{1}\PY{o}{/}\PY{k+kp}{abs}\PY{p}{(}musqig.j\PY{p}{[}k\PY{p}{]}\PY{o}{\PYZhy{}}musqig.j\PY{p}{[}kdash\PY{p}{]}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} assign updated iterations, or tol value if \PYZdq{}zero\PYZdq{}}
+          muDiffIter\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{max}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}beta.t.j\PY{p}{[}k\PY{p}{]}\PY{o}{\PYZhy{}}beta.t.j\PY{p}{[}kdash\PY{p}{]}\PY{p}{)}\PY{p}{,}deltatol\PY{p}{)}
+          G\PY{p}{[}k\PY{p}{,}kdash\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}G\PY{p}{[}kdash\PY{p}{,}k\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}} \PY{o}{\PYZhy{}}PFweight\PY{o}{/}muDiffIter
+        \PY{p}{\PYZcb{}}
+      \PY{p}{\PYZcb{}}
+      \PY{k+kr}{for}\PY{p}{(}k \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}K\PY{p}{)} 
+      \PY{p}{\PYZob{}}
+        sqigX\PY{p}{[}\PY{k+kp}{which}\PY{p}{(}Xclassint\PY{o}{==}k\PY{p}{)}\PY{p}{,}k\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{1}  
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} note the diag elements of G can be calculated as the sum of the column}
+        G\PY{p}{[}k\PY{p}{,}k\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}} \PY{o}{\PYZhy{}}\PY{k+kp}{sum}\PY{p}{(}G\PY{p}{[}\PY{p}{,}k\PY{p}{]}\PY{p}{)}
+      \PY{p}{\PYZcb{}}
+      \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} $\hat{M}=\left(B^TB+\lambda\sigma_j^2G\right)^{-1}B^TJ$}
+      MuIter\PY{p}{[}\PY{p}{,}j\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{solve}\PY{p}{(}\PY{k+kp}{t}\PY{p}{(}sqigX\PY{p}{)}\PY{o}{\PYZpc{}*\PYZpc{}}sqigX\PY{o}{+}lambdar\PY{o}{*}sigmasqs\PY{p}{[}j\PY{p}{]}\PY{o}{*}G\PY{p}{)}\PY{o}{\PYZpc{}*\PYZpc{}}\PY{p}{(}\PY{k+kp}{t}\PY{p}{(}sqigX\PY{p}{)}\PY{o}{\PYZpc{}*\PYZpc{}}sqigY\PY{p}{)}
+      deltaMuNumer\PY{o}{\PYZlt{}\PYZhy{}}deltaMuNumer\PY{o}{+}\PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}MuIter\PY{p}{[}\PY{p}{,}j\PY{p}{]}\PY{o}{\PYZhy{}}beta.t.j\PY{p}{)}\PY{p}{)}
+      deltaMuDenom\PY{o}{\PYZlt{}\PYZhy{}}deltaMuDenom\PY{o}{+}\PY{k+kp}{sum}\PY{p}{(}\PY{k+kp}{abs}\PY{p}{(}beta.t.j\PY{p}{)}\PY{p}{)}
+    \PY{p}{\PYZcb{}}
+    \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} our break loop value}
+    deltaMu\PY{o}{\PYZlt{}\PYZhy{}}deltaMuNumer\PY{o}{/}deltaMuDenom
+  
+  \PY{p}{\PYZcb{}}
+  \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Iterations performed to aquire a solution:\PYZdq{}}\PY{p}{,}itcount
+       \PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{| Final tol val:\PYZdq{}}\PY{p}{,}deltaMu\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{ \PYZbs{}n\PYZdq{}}\PY{p}{)}
+  
+  MuIter\PY{p}{[}\PY{k+kp}{which}\PY{p}{(}MuIter\PY{o}{\PYZlt{}}deltatol\PY{p}{)}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{0}
+  
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} $\tfrac{1}{2}\sum_{j=1}^{p}\hat{\mu}_{kj}^2$ constant term}
+  consts\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}K\PY{p}{)}
+  \PY{k+kr}{for}\PY{p}{(}k \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}K\PY{p}{)} consts\PY{p}{[}k\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{0.5}\PY{o}{*}\PY{k+kp}{sum}\PY{p}{(}MuIter\PY{p}{[}k\PY{p}{,}\PY{p}{]}\PY{o}{\PYZca{}}\PY{l+m}{2}\PY{o}{/}sigmasqs\PY{p}{)}
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} $\hat{\mu}_{kj}^2/\sigma_p^2$ term}
+  lins\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{vector}\PY{p}{(}mode\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{list\PYZdq{}}\PY{p}{,}length\PY{o}{=}K\PY{p}{)}
+  \PY{k+kr}{for}\PY{p}{(}k \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}K\PY{p}{)} lins\PY{p}{[[}k\PY{p}{]]}\PY{o}{\PYZlt{}\PYZhy{}}MuIter\PY{p}{[}k\PY{p}{,}\PY{p}{]}\PY{o}{/}sigmasqs
+  
+  \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} return calculated information as list object}
+  \PY{k+kr}{return}\PY{p}{(}\PY{k+kt}{list}\PY{p}{(}classes\PY{o}{=}classnames\PY{p}{,}consts\PY{o}{=}consts\PY{p}{,}lins\PY{o}{=}lins\PY{p}{,}prior\PY{o}{=}priors
+              \PY{p}{,}meanadj\PY{o}{=}transMeans\PY{p}{,}MuIter\PY{o}{=}MuIter\PY{p}{,}InitMu\PY{o}{=}MuMat\PY{p}{)}\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}

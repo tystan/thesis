@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
+\PY{c+cp}{\PYZsh{}}\PY{c+cp}{include \PYZlt{}R.h\PYZgt{} }
+
+\PY{k+kt}{void} \PY{n+nf}{domfeat}\PY{p}{(}\PY{k+kt}{int} \PY{o}{*}\PY{n}{n}\PY{p}{,} \PY{k+kt}{double} \PY{o}{*}\PY{n}{obja}\PY{p}{,} \PY{k+kt}{double} \PY{o}{*}\PY{n}{objb}\PY{p}{,} \PY{k+kt}{int} \PY{o}{*}\PY{n}{domvec}\PY{p}{)}
+\PY{p}{\PYZob{}}
+	\PY{k+kt}{int} \PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{,} \PY{n}{nonDomI}\PY{p}{;}
+	\PY{k}{for} \PY{p}{(}\PY{n}{i}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{;} \PY{n}{i}\PY{o}{\PYZlt{}}\PY{o}{*}\PY{n}{n}\PY{p}{;} \PY{n}{i}\PY{o}{+}\PY{o}{+}\PY{p}{)}
+	\PY{p}{\PYZob{}}
+		\PY{n}{j}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{;}
+		\PY{n}{nonDomI}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{;}
+		\PY{k}{while}\PY{p}{(}\PY{n}{nonDomI} \PY{o}{\PYZam{}}\PY{o}{\PYZam{}} \PY{n}{j}\PY{o}{\PYZlt{}}\PY{o}{*}\PY{n}{n}\PY{p}{)}
+		\PY{p}{\PYZob{}}
+			\PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{obja}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{n}{obja}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}}\PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{objb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{objb}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{n}{nonDomI}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{;}
+			\PY{k}{else} \PY{k}{if}\PY{p}{(}\PY{p}{(}\PY{n}{objb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{n}{objb}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}}\PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{obja}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{o}{=}\PY{n}{obja}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{n}{nonDomI}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{;}
+			\PY{n}{j}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{;}
+		\PY{p}{\PYZcb{}}
+		\PY{n}{domvec}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{n}{nonDomI}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{;}
+	\PY{p}{\PYZcb{}}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}

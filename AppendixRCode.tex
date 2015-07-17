@@ -1,0 +1,377 @@
+\documentclass[12pt,a4paper,oneside]{report}
+\usepackage{fancyhdr}	
+%\usepackage{fancyheadings}	
+\usepackage{geometry}%[margin=2.5cm, a4paper][top=15mm, bottom=15mm, left=35mm, right=15mm]
+\usepackage{amsmath}			% packages to give lots of maths stuff
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{natbib}				% easy reference package
+%\usepackage{units}	
+%\usepackage{subfig}
+\usepackage{color}
+\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an inden
+\usepackage{graphicx}	
+\usepackage{fancyvrb}
+
+%\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc}
+
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{color}
+\usepackage{array}
+\usepackage{alltt}
+\usepackage{upgreek}
+\usepackage{tikz}
+%\usepackage{threeparttable}
+\usepackage{fixltx2e}
+
+\usepackage{enumitem}
+\setenumerate[1]{label=(\arabic*)}
+
+%\usepackage{tocvsec2}
+
+
+%\usepackage{arydshln,mathtools}
+%\usepackage[thinlines,thiklines]{easybmat}
+%\usepackage{kbordermatrix}% http://www.hss.caltech.edu/~kcb/TeX/kbordermatrix.sty
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
+
+
+
+\usepackage{amsthm}
+\usepackage{dsfont}
+%\usepackage{caption}
+%\usepackage[font={it}]{caption} %font={small,it}
+\usepackage[hang,small,bf]{caption}
+\usepackage{subcaption}
+
+\setlength{\captionmargin}{20pt}
+\captionsetup[subfigure]{labelformat=simple}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+
+\usepackage{pdflscape}
+\usepackage{multirow}
+ 
+% \usepackage[section]{placeins}
+\newtheorem{csprop}{Code Segment}[chapter]
+\newtheorem{algprop}{Algorithm}[chapter]
+ \def\bcd#1{\begin{csprop}[\scshape{#1}]\mbox{}}
+\def\ecd{\end{csprop}}
+\def\balg#1{\begin{algprop}[\scshape{#1}]\mbox{}}
+\def\ealg{\end{algprop}}
+
+%\usepackage[scaled]{beramono}
+%\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{lmodern}
+
+%\usepackage[latin1]{inputenc}
+%%% make dejvu monospace default tt font
+\usepackage[scaled]{beramono}
+\usepackage[T1]{fontenc}
+
+\setlength{\textwidth}{150.0mm}
+\setlength{\textheight}{220.0mm}
+%\setlength{\oddsidemargin}{14.0mm}
+%\setlength{\evensidemargin}{7.0mm}
+%\setlength{\topmargin}{-7.0mm}
+%\renewcommand{\topfraction}{0.99}
+%\renewcommand{\textfraction}{0.01}
+
+
+\setcounter{topnumber}{2}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.7}
+\renewcommand{\dbltopfraction}{.66}
+\renewcommand{\dblfloatpagefraction}{.66}
+
+
+%\usepackage{enumitem}
+
+%\numberwithin{equation}{section}
+%\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+%\renewcommand{\thetable}{\arabic{section}.\arabic{table}}
+
+% Set up the naming conventions for equations etc
+\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}%.\arabic{section}
+\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}%.\arabic{section}
+\renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}%.\arabic{section}
+
+
+
+\clubpenalty10000
+\widowpenalty10000
+\allowdisplaybreaks
+\raggedbottom
+
+\interfootnotelinepenalty=10000
+
+%\input{Preamble/Preamble}
+
+%% This is for the Verbatim environments using pygments
+%% shortlist: paraiso-light, manni, autumn, xcode, default, trac, native, friendly
+\input{tex/manniedited}
+
+
+
+\lhead[\fancyplain{}{\thepage}]{\fancyplain{}{\nouppercase\rightmark}}
+\rhead[\fancyplain{}{\nouppercase\leftmark}]{\fancyplain{}{\thepage}}
+\cfoot{}
+
+
+%\pagestyle{empty}
+
+%\renewcommand{\baselinestretch}{1.5}
+ 
+ 
+ 
+\begin{document}
+
+% Change the page numbering system for the preamble
+\pagenumbering{roman}
+ %\addtolength{\headwidth}{\marginparsep}
+% \addtolength{\headwidth}{\marginparwidth}
+
+
+
+
+\tableofcontents
+
+\clearpage
+
+
+\pagenumbering{arabic}
+\pagestyle{fancy}
+% What do you want at the top and bottom of a page (see fancyheadings.sty)
+%\rhead{\thepage}
+%\rhead{\thepage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%      Proteins, cancer and mass spectrometry        %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%      Appendices        %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+  
+%\setcounter{table}{0}  
+% Set up the naming conventions for equations etc
+
+% Set up the naming conventions for equations in the appendices
+\renewcommand{\theequation}{\Alph{chapter}.\arabic{equation}} %\arabic{section}.
+\renewcommand\thetable{\thechapter.\arabic{table}}    
+
+\renewcommand\thefigure{\thechapter.\arabic{figure}}  
+
+%\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}%.\arabic{section}
+%\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}%.\arabic{section}
+%\renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}%.\arabic{section}
+
+\begin{appendix}
+%\addtocontents{toc}{\protect\setcounter{tocdepth}{0}} %% this stops subsections listed in TOC
+%\addcontentsline{toc}{chapter}{Appendix}
+
+%\settocdepth{chapter}
+
+
+\addtocontents{toc}{\setcounter{tocdepth}{0}}
+
+
+
+\chapter{Morphological opening implementations and proofs} \label{app:morph}
+
+\section{Simple top-hat implementation} \label{lsa}
+
+Consider $x \in \left\{ 1,2,\ldots,n \right\} = X$ and $ f \left( x \right) \in \mathds{R} \; \; \forall x \in X$. Because of the assumed even spacing of the elements of $X$, the {\tt R}-function below simply requires the vector of intensities, $f$, and the size of the SE. 
+
+
+\subsection{Top-hat implementation}
+
+\input{tex/tophatcode.tex}
+
+
+
+
+Note, the code checks the SE provided is an odd integer as a centred, symmetric SE is required. The maximum and minimum statements on line 6 of Code Segment \ref{thcode}, namely {\tt max(1,i-halfse)} and {\tt min(nx,i+halfse)}, check for when the SE sits over the `edge' on the left or right of the series, respectively. This ensures only defined $f$ values will be used. 
+	
+\section{Line segment erosion implementation} \label{lsaR}
+
+
+	\input{tex/erosionquick}
+
+
+		
+\section[Naive implementation: unequally spaced values]{Naive implementation of a morphological erosion for unequally spaced values} \label{naiveclsa}
+
+%\begin{algorithm}                      
+%\caption{Calculate $\epsilon_B (f) (x_i)$ for all $x_i \in X$}         
+%      
+ 
+\balg{Calculate $\epsilon_B (f) (x_i)$ for all $x_i \in X \subset \mathds{R}$} \label{alg1}                
+\begin{algorithmic}                    
+\REQUIRE $X= \left\{x_1,x_2,\ldots,x_n \right\}, f(X), k=SE.length$
+\FORALL{$x_i \in X$}
+\STATE find $x_l$ s.t. $x_{l-1} < x_i-\frac{k}{2} \leq x_l$
+\STATE find $x_u$ s.t. $x_{u} \leq x_i+\frac{k}{2} < x_{u+1}$
+\STATE $\epsilon_B (f) (x_i) \gets  \min \left\{ f( x_{l}), f(x_{l+1}), \dots, f(x_{i-1}), f(x_i), f(x_{i+1}), \ldots, f(x_{u-1}), f(x_u) \right\}$
+\ENDFOR
+\end{algorithmic}
+\ealg
+
+%\end{algorithm}
+
+%A {\tt R} implementation of Algorithm \ref{alg1} is given in Appendix \ref{append1}.
+ 
+A vector of all the lower bounds (LB) $x_l$ in Algorithm \ref{alg1} for each corresponding $x_i$ can be created using a $O (n)$ algorithm using two pointers along the input vector $X$. One pointer is the current position, the other is a lagging pointer that moves along the vector when required. A simple algorithm to do this is described in Algorithm \ref{alg2}. To find the upper bound the same algorithm would be employed, but the pointers will start from the right and move down the vector with the second point lagging to the right.\\[15pt]
+
+
+%\begin{algorithm}
+                     
+\balg{Find a vector of length $n$ of the $x_l$s (LBs) from Algorithm \ref{alg1}}         
+\label{alg2}                           
+\begin{algorithmic}                    
+\REQUIRE $X= \left\{x_1,x_2,\ldots,x_n \right\}, k=SE.length$
+\STATE create the vector $X_{LB}$ of length $n$
+\STATE $pointer_{curr} \gets 2$
+\STATE $pointer_{LB} \gets 1$
+\STATE $X_{LB} \left[ 1 \right] \gets 1 \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \;  \; \; \; \; \; \; \; \; \; \; \; \;  \; \; \; \; $ \# \COMMENT{$x_1$ is its own LB}
+\WHILE{$pointer_{curr} \leq n$}
+\IF{$x_{pointer_{curr}}-x_{pointer_{LB}} \leq \frac{k}{2}$}
+\STATE $X_{LB} \left[ pointer_{curr} \right] \gets pointer_{LB} $
+\STATE $pointer_{curr}  \gets pointer_{curr} + 1$
+\ELSE
+\STATE $pointer_{LB}  \gets pointer_{LB} + 1 \; \; \; \; \; \; \; \; \; \; \; \; \; \; $ \# \COMMENT{check next element for LB}
+\ENDIF
+\ENDWHILE
+\RETURN $X_{LB}$
+\end{algorithmic}
+\ealg
+
+%\end{algorithm}
+
+
+	
+
+
+
+\section{Continuous line segment erosion implementation} \label{clsa}
+
+	\input{tex/ctserosionquick}
+
+
+\clearpage
+
+\chapter{Normalisation implementation}
+
+
+\section{Empirical quantile normalisation implementation} \label{Quantnormcode}
+
+	\input{tex/quantnorm}
+	
+\clearpage
+
+\section{MA normalisation implementation} \label{MAnormcode}
+
+	\input{tex/MAadj}
+	
+\clearpage
+
+\chapter{Peak alignment algorithms and implementation} \label{pacodes}
+
+
+\section{NM-alignment code} \label{nm}
+
+	\input{tex/NMalign}
+
+
+	\input{tex/guideTreePeakAlign}
+
+
+
+
+
+
+	
+	
+\clearpage
+
+
+\chapter{Surrogate variable analysis implementation} \label{sva}
+
+
+Please note the function \texttt{getH()} (line 47 below) is the code available in the \texttt{DanteR} package to determine the number of significant surrogate variables. The function \texttt{mulReg(Y,X)} performs sequential linear regressions on the columns of the input \texttt{Y} using a fixed effects design matrix \texttt{X}. \texttt{mulReg()} returns a list containing the following vectors and matrices: \texttt{RES}$_{n \times P}$, residual matrix after \texttt{Y} has been regressed; \texttt{BETA}$_{d \times P}$, matrix of the regression coefficients, $P$ columns for each regression; \texttt{TVALS}$_{d \times P}$, the corresponding $t$-statistics; \texttt{PVALS}$_{d \times P}$ the corresponding $p$-values of \texttt{TVALS}; \texttt{FPVALS}$_{P\times 1}$, $p$-value for each linear regression corresponding to the null model $F$-statistic.
+
+	\input{tex/doSVA}
+	
+\clearpage
+
+
+\chapter{Supplementary detail of classification methods} \label{PFLDA}
+
+
+\section[PFDA code]{Pairwise fusion linear discriminant analysis code} \label{PFLDAcode}
+
+	\input{tex/createPFldaobj.tex}
+
+\clearpage
+
+	\input{tex/PFldapredict.tex}
+
+\clearpage
+
+
+
+\chapter{Pareto Fronts for variable ranking} \label{PFs}
+
+\section{Dominating features} \label{domfeatcode}
+
+Below is the core of the Pareto Front code, finding features that are the dominated as per the definition. Written in {\tt C} to be compiled to a {\tt .so} file (or \texttt{.dll} on Windows operating systems) that in turn can be loaded into {\tt R}.
+
+	\input{tex/domfeat.tex}
+
+
+
+\section{Pareto Front wrapper functions} \label{cvPFs}
+
+	\input{tex/ParetoFronts.tex}
+
+
+\end{appendix}
+
+\clearpage
+
+
+
+
+\addtocontents{toc}{\setcounter{tocdepth}{2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%      Bibliography        %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\end{document}  
+
+

@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Input: msData \PYZhy{} the spectra intensities in matrix}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}        where columns are spectra $1,2,\hdots,n$}
+msEmpiricalQuantNorm\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}msData\PY{p}{)}
+\PY{p}{\PYZob{}}
+	msD\PY{o}{\PYZlt{}\PYZhy{}}msData
+	nSpec\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{ncol}\PY{p}{(}msD\PY{p}{)}
+	nDim\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{nrow}\PY{p}{(}msD\PY{p}{)}
+
+	orders\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{apply}\PY{p}{(}msD\PY{p}{,} \PY{l+m}{2}\PY{p}{,} \PY{k+kp}{order}\PY{p}{)}
+	reorders\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{apply}\PY{p}{(}orders\PY{p}{,} \PY{l+m}{2}\PY{p}{,} \PY{k+kp}{order}\PY{p}{)}
+	\PY{c+c1}{\PYZsh{} order each column into ascending order}
+	\PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nSpec\PY{p}{)} msD\PY{p}{[}\PY{p}{,}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}msD\PY{p}{[}orders\PY{p}{[}\PY{p}{,}i\PY{p}{]}\PY{p}{,}i\PY{p}{]}
+	\PY{c+c1}{\PYZsh{}replace ordered columns with row means}
+	rmeans\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rowMeans}\PY{p}{(}msD\PY{p}{)}
+	\PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nSpec\PY{p}{)} msD\PY{p}{[}\PY{p}{,}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}rmeans
+	\PY{c+c1}{\PYZsh{}put back into the original order (with changed values)}
+	\PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nSpec\PY{p}{)} msD\PY{p}{[}\PY{p}{,}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}msD\PY{p}{[}reorders\PY{p}{[}\PY{p}{,}i\PY{p}{]}\PY{p}{,}i\PY{p}{]}
+
+	\PY{k+kr}{return}\PY{p}{(}msD\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}

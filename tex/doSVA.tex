@@ -1,0 +1,71 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} FUNCTION \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} doSVA: Perform SVA using the model:}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}        $Y_j = \mu_j + X\alpha_j + Z\beta_j + W\delta_j + \mathbf{e}_j$}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} INPUTS \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Y: is a $n \times p$ matrix, where each p columns are regressed}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Intecept: boolean; do we want to fit a mean value? (yes, in most cases)}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} X: is a $n \times d_{\alpha}$ design matrix of the factors of interest}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Z: is a $n \times d_{\beta}$ design matrix of the incidental experimental factors}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} nosigsv: the number (referred to as $H$ in some papers) of significant }
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}         eigen vecs if $NULL$, the function will determine. If less than }
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}         $1$, no $W$ computed}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} verbose: boolean, whether the surragate variable matrix, $W$ is returned}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} seed: an integer to feed into \PYZsq{}set.seed()\PYZsq{} for reproducable results}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} OUTPUTS \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Ytilde: the Y matrix with $Z\beta_j + W\delta_j$ removed}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} pvals: the p\PYZhy{}values of Ytilde regressed on $\mu_j + X\alpha_j + Z\beta_j + W\delta_j$}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} tvals: the corresponding t\PYZhy{}statistics}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} betas: the corresponding $\alpha_j,\beta_j,\delta_j$ estimates}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} paramlabels: a combination of I (intercept), X, Z, W to signify the }
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}         relevent rows of p\PYZhy{}vals/tvals/betas}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} W: the eigen vectors matrix}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} H: the number of columns of W (used eigen\PYZhy{}vectors)}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+doSVA\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}
+	Y\PY{p}{,}Intercept\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}X\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{,}Z\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{,}nosigsv\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{,}verbose\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{,}seed\PY{o}{=}\PY{k+kc}{NULL}
+\PY{p}{)}\PY{p}{\PYZob{}}
+	n\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{nrow}\PY{p}{(}Y\PY{p}{)}
+	thisInt\PY{o}{\PYZlt{}\PYZhy{}}IXZ\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+	\PY{k+kr}{if}\PY{p}{(}Intercept\PY{p}{)} thisInt\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}nrow\PY{o}{=}n\PY{p}{,}ncol\PY{o}{=}\PY{l+m}{1}\PY{p}{,}dimnames\PY{o}{=}\PY{k+kt}{list}\PY{p}{(}\PY{k+kc}{NULL}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{Intcpt\PYZdq{}}\PY{p}{)}\PY{p}{)}
+	\PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{is.null}\PY{p}{(}thisInt\PY{p}{)} \PY{o}{\PYZam{}\PYZam{}} \PY{k+kp}{is.null}\PY{p}{(}X\PY{p}{)} \PY{o}{\PYZam{}\PYZam{}} \PY{k+kp}{is.null}\PY{p}{(}Z\PY{p}{)}\PY{p}{)}
+	\PY{p}{\PYZob{}}
+		\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{At least one of: Intercept, X and Z must be specified \PYZbs{}n\PYZdq{}}\PY{p}{)}
+		\PY{k+kr}{return}\PY{p}{(}\PY{k+kc}{NULL}\PY{p}{)}
+	\PY{p}{\PYZcb{}} \PY{k+kr}{else} IXZ\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{cbind}\PY{p}{(}thisInt\PY{p}{,}X\PY{p}{,}Z\PY{p}{)}
+	kparam\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{ncol}\PY{p}{(}IXZ\PY{p}{)}
+	colmarkers\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{,}kparam\PY{p}{)}
+	indx\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{0}
+	\PY{k+kr}{if}\PY{p}{(}\PY{o}{!}\PY{k+kp}{is.null}\PY{p}{(}thisInt\PY{p}{)}\PY{p}{)} colmarkers\PY{p}{[}indx\PY{o}{\PYZlt{}\PYZhy{}}indx\PY{l+m}{+1}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{I\PYZdq{}}
+	\PY{k+kr}{if}\PY{p}{(}\PY{o}{!}\PY{k+kp}{is.null}\PY{p}{(}X\PY{p}{)}\PY{p}{)} colmarkers\PY{p}{[}\PY{p}{(}indx\PY{o}{\PYZlt{}\PYZhy{}}indx\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{p}{(}indx\PY{o}{\PYZlt{}\PYZhy{}}indx\PY{o}{+}\PY{k+kp}{ncol}\PY{p}{(}X\PY{p}{)}\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{X\PYZdq{}}
+	\PY{k+kr}{if}\PY{p}{(}\PY{o}{!}\PY{k+kp}{is.null}\PY{p}{(}Z\PY{p}{)}\PY{p}{)} colmarkers\PY{p}{[}\PY{p}{(}indx\PY{o}{\PYZlt{}\PYZhy{}}indx\PY{l+m}{+1}\PY{p}{)}\PY{o}{:}\PY{p}{(}indx\PY{o}{\PYZlt{}\PYZhy{}}indx\PY{o}{+}\PY{k+kp}{ncol}\PY{p}{(}Z\PY{p}{)}\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{Z\PYZdq{}}
+
+	RIXZ\PY{o}{\PYZlt{}\PYZhy{}}multReg\PY{p}{(}Y\PY{p}{,}IXZ\PY{p}{,}createNAvals\PY{o}{=}\PY{k+kc}{TRUE}\PY{p}{,}seed\PY{o}{=}seed\PY{p}{)} 
+	thissvd\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{svd}\PY{p}{(}RIXZ\PY{o}{\PYZdl{}}RES\PY{p}{)}
+	
+	W\PY{o}{\PYZlt{}\PYZhy{}}H\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{NULL}
+	\PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{is.null}\PY{p}{(}nosigsv\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
+		H\PY{o}{\PYZlt{}\PYZhy{}}getH\PY{p}{(}RIXZ\PY{o}{\PYZdl{}}RES\PY{p}{,}IXZ\PY{p}{,}nullsig\PY{o}{=}\PY{l+m}{0.1}\PY{p}{,}verbose\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
+		\PY{k+kr}{if}\PY{p}{(}H\PY{o}{\PYZlt{}}\PY{l+m}{1}\PY{p}{)} \PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{No significant surrogate variables found \PYZbs{}n\PYZdq{}}\PY{p}{)}
+	\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}}
+		H\PY{o}{\PYZlt{}\PYZhy{}}nosigsv
+	\PY{p}{\PYZcb{}}
+	\PY{k+kr}{if}\PY{p}{(}H\PY{o}{\PYZlt{}}\PY{l+m}{1}\PY{p}{)}\PY{p}{\PYZob{}}
+		\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{No surrogate variables will be used \PYZbs{}n\PYZdq{}}\PY{p}{)}
+	\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}}
+		\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Using H=\PYZdq{}}\PY{p}{,}H\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{ significant surrogate variables \PYZbs{}n\PYZdq{}}\PY{p}{,}sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+		W\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.matrix}\PY{p}{(}thissvd\PY{o}{\PYZdl{}}u\PY{p}{[}\PY{p}{,}\PY{l+m}{1}\PY{o}{:}H\PY{p}{]}\PY{p}{)} 
+		\PY{k+kp}{colnames}\PY{p}{(}W\PY{p}{)}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{paste}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{W\PYZdq{}}\PY{p}{,}\PY{l+m}{1}\PY{o}{:}H\PY{p}{,}sep\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+		colmarkers\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{c}\PY{p}{(}colmarkers\PY{p}{,}\PY{k+kp}{rep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{W\PYZdq{}}\PY{p}{,}H\PY{p}{)}\PY{p}{)}
+	\PY{p}{\PYZcb{}}
+	IXZW\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{cbind}\PY{p}{(}IXZ\PY{p}{,}W\PY{p}{)}
+	Rtilde\PY{o}{\PYZlt{}\PYZhy{}}multReg\PY{p}{(}Y\PY{p}{,}IXZW\PY{p}{)}
+	removecols\PY{o}{\PYZlt{}\PYZhy{}}colmarkers \PY{o}{\PYZpc{}in\PYZpc{}} \PY{k+kt}{c}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Z\PYZdq{}}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{W\PYZdq{}}\PY{p}{)}
+	ZBetaWDelta\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{0}
+	\PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{sum}\PY{p}{(}removecols\PY{p}{)}\PY{p}{)} ZBetaWDelta\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.matrix}\PY{p}{(}IXZW\PY{p}{[}\PY{p}{,}removecols\PY{p}{]}\PY{p}{)} \PY{o}{\PYZpc{}*\PYZpc{}} 
+								\PY{k+kp}{as.matrix}\PY{p}{(}Rtilde\PY{o}{\PYZdl{}}BETA\PY{p}{[}removecols\PY{p}{,}\PY{p}{]}\PY{p}{)}
+	Ytilde\PY{o}{\PYZlt{}\PYZhy{}}Y\PY{o}{\PYZhy{}}ZBetaWDelta
+	\PY{k+kr}{if}\PY{p}{(}verbose\PY{p}{)} \PY{k+kr}{return}\PY{p}{(}\PY{k+kt}{list}\PY{p}{(}Ytilde\PY{o}{=}Ytilde\PY{p}{,}paramlabels\PY{o}{=}colmarkers\PY{p}{,}W\PY{o}{=}W\PY{p}{,}H\PY{o}{=}H\PY{p}{)}\PY{p}{)} 
+	\PY{k+kr}{else} \PY{k+kr}{return}\PY{p}{(}Ytilde\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}
