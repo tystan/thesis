@@ -116,7 +116,7 @@
 
 %% This is for the Verbatim environments using pygments
 %% shortlist: paraiso-light, manni, autumn, xcode, default, trac, native, friendly
-\input{tex/manniedited}
+\input{tex/99_manniedited}
 
 
 
@@ -202,7 +202,7 @@ Consider $x \in \left\{ 1,2,\ldots,n \right\} = X$ and $ f \left( x \right) \in 
 
 \subsection{Top-hat implementation}
 
-\input{tex/tophatcode.tex}
+\input{tex/01_tophatcode.tex}
 
 
 
@@ -212,7 +212,7 @@ Note, the code checks the SE provided is an odd integer as a centred, symmetric 
 \section{Line segment erosion implementation} \label{lsaR}
 
 
-	\input{tex/erosionquick}
+	\input{tex/02_erosionquick}
 
 
 		
@@ -271,7 +271,7 @@ A vector of all the lower bounds (LB) $x_l$ in Algorithm \ref{alg1} for each cor
 
 \section{Continuous line segment erosion implementation} \label{clsa}
 
-	\input{tex/ctserosionquick}
+	\input{tex/03_ctserosionquick}
 
 
 \clearpage
@@ -281,13 +281,13 @@ A vector of all the lower bounds (LB) $x_l$ in Algorithm \ref{alg1} for each cor
 
 \section{Empirical quantile normalisation implementation} \label{Quantnormcode}
 
-	\input{tex/quantnorm}
+	\input{tex/04_quantnorm}
 	
 \clearpage
 
 \section{MA normalisation implementation} \label{MAnormcode}
 
-	\input{tex/MAadj}
+	\input{tex/05_MAadj}
 	
 \clearpage
 
@@ -296,10 +296,10 @@ A vector of all the lower bounds (LB) $x_l$ in Algorithm \ref{alg1} for each cor
 
 \section{NM-alignment code} \label{nm}
 
-	\input{tex/NMalign}
+	\input{tex/06_NMalign}
 
 
-	\input{tex/guideTreePeakAlign}
+	\input{tex/07_guideTreePeakAlign}
 
 
 
@@ -316,7 +316,7 @@ A vector of all the lower bounds (LB) $x_l$ in Algorithm \ref{alg1} for each cor
 
 Please note the function \texttt{getH()} (line 47 below) is the code available in the \texttt{DanteR} package to determine the number of significant surrogate variables. The function \texttt{mulReg(Y,X)} performs sequential linear regressions on the columns of the input \texttt{Y} using a fixed effects design matrix \texttt{X}. \texttt{mulReg()} returns a list containing the following vectors and matrices: \texttt{RES}$_{n \times P}$, residual matrix after \texttt{Y} has been regressed; \texttt{BETA}$_{d \times P}$, matrix of the regression coefficients, $P$ columns for each regression; \texttt{TVALS}$_{d \times P}$, the corresponding $t$-statistics; \texttt{PVALS}$_{d \times P}$ the corresponding $p$-values of \texttt{TVALS}; \texttt{FPVALS}$_{P\times 1}$, $p$-value for each linear regression corresponding to the null model $F$-statistic.
 
-	\input{tex/doSVA}
+	\input{tex/08_doSVA}
 	
 \clearpage
 
@@ -326,11 +326,11 @@ Please note the function \texttt{getH()} (line 47 below) is the code available i
 
 \section[PFDA code]{Pairwise fusion linear discriminant analysis code} \label{PFLDAcode}
 
-	\input{tex/createPFldaobj.tex}
+	\input{tex/09_createPFldaobj.tex}
 
 \clearpage
 
-	\input{tex/PFldapredict.tex}
+	\input{tex/10_PFldapredict.tex}
 
 \clearpage
 
@@ -342,13 +342,13 @@ Please note the function \texttt{getH()} (line 47 below) is the code available i
 
 Below is the core of the Pareto Front code, finding features that are the dominated as per the definition. Written in {\tt C} to be compiled to a {\tt .so} file (or \texttt{.dll} on Windows operating systems) that in turn can be loaded into {\tt R}.
 
-	\input{tex/domfeat.tex}
+	\input{tex/11_domfeat.tex}
 
 
 
 \section{Pareto Front wrapper functions} \label{cvPFs}
 
-	\input{tex/ParetoFronts.tex}
+	\input{tex/12_ParetoFronts.tex}
 
 
 \end{appendix}
