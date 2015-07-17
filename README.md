@@ -1,4 +1,5 @@
-## PhD dissertation appendix files @ `github.com/tystan/thesis`
+## PhD dissertation appendix files 
+###### @ `github.com/tystan/thesis/`
 
 R functions and code for the PhD dissertation of Tyman Stanford.
 
