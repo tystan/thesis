@@ -1,4 +1,4 @@
-## PhD dissertation appendix files 
+## :blue_book: PhD dissertation appendix files :blue_book:
 @ [`github.com/tystan/thesis/`](https://github.com/tystan/thesis/)
 
 R functions and code for the PhD dissertation of Tyman Stanford.
@@ -6,7 +6,7 @@ R functions and code for the PhD dissertation of Tyman Stanford.
 > Statistical analysis of proteomic mass spectrometry data for the identification of biomarkers and disease diagnosis. The University of Adelaide, 2015.
 
 
-## Navigation
+## :orange_book: Navigation :orange_book:
 
 * A PDF version of the code is available in [`AppendixRCode.pdf`](../master/AppendixRCode.pdf). 
     * This contains all the relevant R code in one syntax highlighted self-contained document.
@@ -16,14 +16,14 @@ R functions and code for the PhD dissertation of Tyman Stanford.
     * They are numbered so as to be ordered in sequence of appearance in the dissertation and [`AppendixRCode.pdf`](../blob/master/AppendixRCode.pdf).
 
 
-## Acknowledgments
+## :closed_book: Acknowledgments :closed_book:
 
 The wonderful [Pygments](http://pygments.org/) command-line tool was used to peform syntax highlighting. [Pygments](http://pygments.org/) can convert `R` files (and many other programming languages) into `Verbatim` environment `TeX` files to display syntax highlighted code in `LaTeX` documents. Many thanks to this freely available software.
-* The file [`perform_pygmentisation.sh`](../master/perform_pygmentisation.sh) is the command-line input (for unix-alike platforms) used to convert the files in [`R/`](../../tree/master/R/) to the files in [`tex/`](../../tree/master/tex/).
+* The file [`perform_pygmentisation.sh`](../master/perform_pygmentisation.sh) is the command-line input (for unix-alike platforms) used to convert the files in [`R/`](../../tree/master/R/) to the files in [`tex/`](../../tree/master/tex/). This requires Pygments to be installed.
 
 ##### Installing pygments
 
-I was able to install pygments with the following steps: 
+I was able to install Pygments with the following steps: 
 ```sh
 #### download `get-pip.py' from: https://bootstrap.pypa.io/get-pip.py
 
