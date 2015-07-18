@@ -1,4 +1,4 @@
-## :blue_book: PhD dissertation appendix files :blue_book:
+## :blue_book: PhD dissertation online reference: selected appendices containing `R` code   :blue_book:
 @ [`github.com/tystan/thesis/`](https://github.com/tystan/thesis/)
 
 R functions and code for the PhD dissertation of Tyman Stanford.
