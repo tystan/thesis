@@ -18,7 +18,7 @@
 
 ## :closed_book: Acknowledgments :closed_book:
 
-The [Pygments](http://pygments.org/) command-line tool was used to perform syntax highlighting. [Pygments](http://pygments.org/) can convert `R` files (and many other programming languages) into syntax highlighted `Verbatim`environment `LaTeX` markup as `.tex` files. Many thanks to this freely available software.
+The [Pygments](http://pygments.org/) command-line tool was used to perform syntax highlighting. [Pygments](http://pygments.org/) can convert `R` files (and many other programming languages) into syntax highlighted `Verbatim`environment `LaTeX` markup as `.tex` files. Many thanks to the authors and maintainers of this freely available software.
 * The file [`perform_pygmentisation.sh`](../master/perform_pygmentisation.sh) is the command-line input (for unix-alike platforms) used to convert the files in [`R/`](../../tree/master/R/) to the files in [`tex/`](../../tree/master/tex/). This requires Pygments to be installed.
 
 ##### Installing pygments
