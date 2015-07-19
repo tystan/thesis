@@ -10,20 +10,20 @@
 
 * A PDF version of the `R` code used and referenced throughout the dissertation is available in [`AppendixRCode.pdf`](../master/AppendixRCode.pdf). 
     * This contains all the relevant `R` code in one syntax highlighted self-contained document.
-    * [`AppendixRCode.tex`](../master/AppendixRCode.tex) top-level of this repository is the TeX file required to generate [`AppendixRCode.pdf`](../master/AppendixRCode.pdf). 
-    * The directory [`tex/`](../../tree/master/tex/) contains the source files referenced in [`AppendixRCode.tex`](../master/AppendixRCode.tex). 
 * The individual `R` files are available in the [`R/`](../../tree/master/R/) directory. 
     * The files are numbered so as to be ordered in sequence of appearance in the dissertation and [`AppendixRCode.pdf`](../blob/master/AppendixRCode.pdf).
+* The top-level file [`AppendixRCode.tex`](../master/AppendixRCode.tex) is the TeX file required to generate [`AppendixRCode.pdf`](../master/AppendixRCode.pdf). 
+    * The directory [`tex/`](../../tree/master/tex/) contains the source files referenced in [`AppendixRCode.tex`](../master/AppendixRCode.tex). 
 
 
 ## :closed_book: Acknowledgments :closed_book:
 
-The [Pygments](http://pygments.org/) command-line tool was used to perform syntax highlighting. [Pygments](http://pygments.org/) can convert `R` files (and many other programming languages) into `Verbatim` environment `TeX` files to display syntax highlighted code in `LaTeX` documents. Many thanks to this freely available software.
+The [Pygments](http://pygments.org/) command-line tool was used to perform syntax highlighting. [Pygments](http://pygments.org/) can convert `R` files (and many other programming languages) into syntax highlighted `Verbatim`environment `LaTeX` markup as `.tex` files. Many thanks to this freely available software.
 * The file [`perform_pygmentisation.sh`](../master/perform_pygmentisation.sh) is the command-line input (for unix-alike platforms) used to convert the files in [`R/`](../../tree/master/R/) to the files in [`tex/`](../../tree/master/tex/). This requires Pygments to be installed.
 
 ##### Installing pygments
 
-I was able to install Pygments with the following steps: 
+The following steps were required to install [Pygments](http://pygments.org/): 
 ```sh
 #### download `get-pip.py' from: https://bootstrap.pypa.io/get-pip.py
 
@@ -37,4 +37,4 @@ sudo pip install pygments
 #### how'd it go? (there should be files listed here)
 pip show --files pygments
 ```
-A more thorough treatment is available at the download pages of [pygments](http://pygments.org/download/) and [pip](https://pip.pypa.io/en/stable/installing.html) should it be required.
+A more thorough treatment is available at the download pages of [Pygments](http://pygments.org/download/) and [pip](https://pip.pypa.io/en/stable/installing.html) should it be required.
