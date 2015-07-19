@@ -1,7 +1,7 @@
 ## :blue_book: PhD dissertation online reference: selected appendices containing `R` code   :blue_book:
-@ [`github.com/tystan/thesis/`](https://github.com/tystan/thesis/)
 
-`R` functions and code for the PhD dissertation of Tyman Stanford.
+
+`R` functions and code for the PhD dissertation of Tyman Stanford @ [`github.com/tystan/thesis/`](https://github.com/tystan/thesis/).
 
 > Statistical analysis of proteomic mass spectrometry data for the identification of biomarkers and disease diagnosis. The University of Adelaide, 2015.
 
