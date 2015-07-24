@@ -4,68 +4,14 @@
 \usepackage{geometry}%[margin=2.5cm, a4paper][top=15mm, bottom=15mm, left=35mm, right=15mm]
 \usepackage{amsmath}			% packages to give lots of maths stuff
 \usepackage{amssymb}
-\usepackage{latexsym}
-\usepackage{natbib}				% easy reference package
-%\usepackage{units}	
-%\usepackage{subfig}
 \usepackage{color}
 \usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an inden
 \usepackage{graphicx}	
 \usepackage{fancyvrb}
-
-%\usepackage[utf8]{inputenc}
-%\usepackage[latin1]{inputenc}
-
-\usepackage{listings}
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{color}
 \usepackage{array}
-\usepackage{alltt}
-\usepackage{upgreek}
-\usepackage{tikz}
-%\usepackage{threeparttable}
-\usepackage{fixltx2e}
-
-\usepackage{enumitem}
-\setenumerate[1]{label=(\arabic*)}
-
-%\usepackage{tocvsec2}
-
-
-%\usepackage{arydshln,mathtools}
-%\usepackage[thinlines,thiklines]{easybmat}
-%\usepackage{kbordermatrix}% http://www.hss.caltech.edu/~kcb/TeX/kbordermatrix.sty
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri}
-
-
-
+\usepackage{listings}
 \usepackage{amsthm}
 \usepackage{dsfont}
-%\usepackage{caption}
-%\usepackage[font={it}]{caption} %font={small,it}
-\usepackage[hang,small,bf]{caption}
-\usepackage{subcaption}
-
-\setlength{\captionmargin}{20pt}
-\captionsetup[subfigure]{labelformat=simple}
-\renewcommand\thesubfigure{(\alph{subfigure})}
-
-\usepackage{pdflscape}
-\usepackage{multirow}
- 
-% \usepackage[section]{placeins}
-\newtheorem{csprop}{Code Segment}[chapter]
-\newtheorem{algprop}{Algorithm}[chapter]
- \def\bcd#1{\begin{csprop}[\scshape{#1}]\mbox{}}
-\def\ecd{\end{csprop}}
-\def\balg#1{\begin{algprop}[\scshape{#1}]\mbox{}}
-\def\ealg{\end{algprop}}
-
-%\usepackage[scaled]{beramono}
-%\usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
-%\usepackage{lmodern}
 
 %\usepackage[latin1]{inputenc}
 %%% make dejvu monospace default tt font
@@ -74,45 +20,13 @@
 
 \setlength{\textwidth}{150.0mm}
 \setlength{\textheight}{220.0mm}
-%\setlength{\oddsidemargin}{14.0mm}
-%\setlength{\evensidemargin}{7.0mm}
-%\setlength{\topmargin}{-7.0mm}
-%\renewcommand{\topfraction}{0.99}
-%\renewcommand{\textfraction}{0.01}
 
-
-\setcounter{topnumber}{2}
-\setcounter{bottomnumber}{2}
-\setcounter{totalnumber}{4}
-\renewcommand{\topfraction}{0.85}
-\renewcommand{\bottomfraction}{0.85}
-\renewcommand{\textfraction}{0.15}
-\renewcommand{\floatpagefraction}{0.7}
-\renewcommand{\dbltopfraction}{.66}
-\renewcommand{\dblfloatpagefraction}{.66}
-
-
-%\usepackage{enumitem}
-
-%\numberwithin{equation}{section}
-%\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
-%\renewcommand{\thetable}{\arabic{section}.\arabic{table}}
 
 % Set up the naming conventions for equations etc
 \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}%.\arabic{section}
 \renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}%.\arabic{section}
 \renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}%.\arabic{section}
 
-
-
-\clubpenalty10000
-\widowpenalty10000
-\allowdisplaybreaks
-\raggedbottom
-
-\interfootnotelinepenalty=10000
-
-%\input{Preamble/Preamble}
 
 %% This is for the Verbatim environments using pygments
 %% shortlist: paraiso-light, manni, autumn, xcode, default, trac, native, friendly
@@ -126,20 +40,11 @@
 
 
 %\pagestyle{empty}
-
-%\renewcommand{\baselinestretch}{1.5}
- 
  
  
 \begin{document}
 
-% Change the page numbering system for the preamble
 \pagenumbering{roman}
- %\addtolength{\headwidth}{\marginparsep}
-% \addtolength{\headwidth}{\marginparwidth}
-
-
-
 
 \tableofcontents
 
@@ -151,8 +56,6 @@
 % What do you want at the top and bottom of a page (see fancyheadings.sty)
 %\rhead{\thepage}
 %\rhead{\thepage}
-
-
 
 
 
@@ -187,28 +90,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-  
-%\setcounter{table}{0}  
-% Set up the naming conventions for equations etc
+
 
 % Set up the naming conventions for equations in the appendices
 \renewcommand{\theequation}{\Alph{chapter}.\arabic{equation}} %\arabic{section}.
-\renewcommand\thetable{\thechapter.\arabic{table}}    
-
-\renewcommand\thefigure{\thechapter.\arabic{figure}}  
+ 
 
 %\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}%.\arabic{section}
 %\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}%.\arabic{section}
 %\renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}%.\arabic{section}
 
 \begin{appendix}
-%\addtocontents{toc}{\protect\setcounter{tocdepth}{0}} %% this stops subsections listed in TOC
-%\addcontentsline{toc}{chapter}{Appendix}
-
-%\settocdepth{chapter}
 
 \addtocontents{toc}{\setcounter{tocdepth}{3}}
-%\addtocontents{toc}{\setcounter{tocdepth}{0}}
 
 
 
@@ -416,18 +310,6 @@ Below is the core of the Pareto Front code, finding features that are the domina
 
 \end{appendix}
 
-
-
-
-
-
-%\addtocontents{toc}{\setcounter{tocdepth}{2}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%      Bibliography        %%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
