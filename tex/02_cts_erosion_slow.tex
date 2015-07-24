@@ -1,0 +1,46 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
+get.lo.bounds\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}k\PY{p}{)}\PY{p}{\PYZob{}}
+	nx \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}x\PY{p}{)}
+	k0 \PY{o}{\PYZlt{}\PYZhy{}} k\PY{o}{/}\PY{l+m}{2}
+	LO \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
+	i \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{2}
+	i\PYZus{}lo \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+m}{1}
+	LO\PY{p}{[}i\PYZus{}lo\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} i\PYZus{}lo \PY{c+c1}{\PYZsh{} x[1] has lower bound 1}
+	\PY{k+kr}{while}\PY{p}{(}i\PY{o}{\PYZlt{}=}nx\PY{p}{)}
+	\PY{p}{\PYZob{}}
+		\PY{k+kr}{if}\PY{p}{(}\PY{p}{(}x\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZhy{}}x\PY{p}{[}i\PYZus{}lo\PY{p}{]}\PY{p}{)}\PY{o}{\PYZlt{}=}k0\PY{p}{)}\PY{p}{\PYZob{}}
+			LO\PY{p}{[}i\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} i\PYZus{}lo
+			i \PY{o}{\PYZlt{}\PYZhy{}} i\PY{l+m}{+1}
+		\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}}
+			i\PYZus{}lo \PY{o}{\PYZlt{}\PYZhy{}} i\PYZus{}lo\PY{l+m}{+1} 
+		\PY{p}{\PYZcb{}}
+	\PY{p}{\PYZcb{}}
+	\PY{k+kr}{return}\PY{p}{(}LO\PY{p}{)}
+\PY{p}{\PYZcb{}}
+get.hi.bounds\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}k\PY{p}{)}\PY{p}{\PYZob{}}
+	nx \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}x\PY{p}{)}
+	k0 \PY{o}{\PYZlt{}\PYZhy{}} k\PY{o}{/}\PY{l+m}{2}
+	HI \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
+	i \PY{o}{\PYZlt{}\PYZhy{}} nx\PY{l+m}{\PYZhy{}1}
+	i\PYZus{}hi \PY{o}{\PYZlt{}\PYZhy{}} nx
+	HI\PY{p}{[}i\PYZus{}hi\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} i\PYZus{}hi \PY{c+c1}{\PYZsh{} x[nx] has upper bound nx}
+	\PY{k+kr}{while}\PY{p}{(}i\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)}
+	\PY{p}{\PYZob{}}
+		\PY{k+kr}{if}\PY{p}{(}\PY{p}{(}x\PY{p}{[}i\PYZus{}hi\PY{p}{]}\PY{o}{\PYZhy{}}x\PY{p}{[}i\PY{p}{]}\PY{p}{)}\PY{o}{\PYZlt{}=}k0\PY{p}{)}\PY{p}{\PYZob{}}
+			HI\PY{p}{[}i\PY{p}{]} \PY{o}{\PYZlt{}\PYZhy{}} i\PYZus{}hi
+			i \PY{o}{\PYZlt{}\PYZhy{}} i\PY{l+m}{\PYZhy{}1}
+		\PY{p}{\PYZcb{}}\PY{k+kp}{else}\PY{p}{\PYZob{}}
+			i\PYZus{}hi \PY{o}{\PYZlt{}\PYZhy{}} i\PYZus{}hi\PY{l+m}{\PYZhy{}1} 
+		\PY{p}{\PYZcb{}}
+	\PY{p}{\PYZcb{}}
+	\PY{k+kr}{return}\PY{p}{(}HI\PY{p}{)}
+\PY{p}{\PYZcb{}}
+erode.cts.slow\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}f\PY{p}{,}k\PY{p}{)}\PY{p}{\PYZob{}}
+	nx\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}x\PY{p}{)}
+	r\PYZus{}min\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
+	LO\PY{o}{\PYZlt{}\PYZhy{}}get.lo.bounds\PY{p}{(}x\PY{p}{,}k\PY{p}{)}
+	HI\PY{o}{\PYZlt{}\PYZhy{}}get.hi.bounds\PY{p}{(}x\PY{p}{,}k\PY{p}{)}
+	\PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nx\PY{p}{)} r\PYZus{}min\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{min}\PY{p}{(}f\PY{p}{[}LO\PY{p}{[}i\PY{p}{]}\PY{o}{:}HI\PY{p}{[}i\PY{p}{]]}\PY{p}{)}
+	\PY{k+kr}{return}\PY{p}{(}r\PYZus{}min\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}

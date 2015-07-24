@@ -69,7 +69,7 @@
 
 %\usepackage[latin1]{inputenc}
 %%% make dejvu monospace default tt font
-\usepackage[scaled]{beramono}
+\usepackage[scaled=.8]{beramono}
 \usepackage[T1]{fontenc}
 
 \setlength{\textwidth}{150.0mm}
@@ -153,11 +153,30 @@
 %\rhead{\thepage}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%      Proteins, cancer and mass spectrometry        %%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+\definecolor{linkblue}{rgb}{0.192,0.494,0.675}
+\definecolor{fngrey}{rgb}{0.220,0.220,0.251}	
+
+\newcommand{\codetab}[1]{%
+\begin{center}
+\begin{tabular}{m{4.5cm}m{5cm}r}
+\hline
+\textsf{Description} & \textsf{File} & \textsf{Functions} \\
+  \hline
+#1
+   \hline
+\end{tabular}
+\end{center}
+}
+\newcommand{\codeentry}[3]{%
+\multicolumn{3}{l}{\textsf{#1:}} \\
+ &  \texttt{\textcolor{linkblue}{/#2}}  & \textcolor{fngrey}{\texttt{#3}} \\ %
+}
 
 
 
@@ -188,177 +207,221 @@
 
 %\settocdepth{chapter}
 
-
-\addtocontents{toc}{\setcounter{tocdepth}{0}}
-
-
-
-\chapter{Morphological opening implementations and proofs} \label{app:morph}
-
-\section{Simple top-hat implementation} \label{lsa}
-
-Consider $x \in \left\{ 1,2,\ldots,n \right\} = X$ and $ f \left( x \right) \in \mathds{R} \; \; \forall x \in X$. Because of the assumed even spacing of the elements of $X$, the {\tt R}-function below simply requires the vector of intensities, $f$, and the size of the SE. 
-
-
-\subsection{Top-hat implementation}
-
-\input{tex/01_tophatcode.tex}
+\addtocontents{toc}{\setcounter{tocdepth}{3}}
+%\addtocontents{toc}{\setcounter{tocdepth}{0}}
 
 
 
+\chapter{\texttt{R} code} \label{app:R}
 
-Note, the code checks the SE provided is an odd integer as a centred, symmetric SE is required. The maximum and minimum statements on line 6 of Code Segment \ref{thcode}, namely {\tt max(1,i-halfse)} and {\tt min(nx,i+halfse)}, check for when the SE sits over the `edge' on the left or right of the series, respectively. This ensures only defined $f$ values will be used. 
+
+All files referenced in the current appendix are available under the directory at:
+\begin{center}
+\texttt{\textcolor{linkblue}{https://github.com/tystan/thesis/tree/master/R}}.
+\end{center}
+
+
+
+\clearpage
+
+
+\section{Morphological operators}
+
+
+
+\begin{center}
+\begin{tabular}{m{3cm}m{5cm}r}
+\hline
+\textsf{Description} & \textsf{File} & \textsf{Functions} \\
+  \hline
+\codeentry{Naive erosion and top-hat}{00\_erosion\_slow.R}{erode(), dilate(), tophat()}
+\codeentry{Line segment erosion}{01\_erosion\_quick.R}{erode\_quick()}
+\codeentry{Naive erosion for unequally spaced values}{02\_cts\_erosion\_slow.R}{erode\_cts\_slow()}
+\codeentry{Continuous line segment erosion}{03\_cts\_erosion\_quick.R}{erode\_cts\_quick()}
+   \hline
+\end{tabular}
+\end{center}
+
+\clearpage
+
+\subsection{Naive erosion and top-hat} 
+
+Consider $x \in \left\{ 1,2,\ldots,n \right\} = X$ and $ f \left( x \right) \in \mathds{R} \; \; \forall x \in X$. Because of the assumed even spacing of the elements of $X$, the {\tt R}-function below simply requires the vector of intensities, $f$, and the size of the SE. \\
+
+
+	\input{tex/00_erosion_slow}
+
+\vskip12pt
+
+
+Note, the code checks the SE provided is an odd integer as a centred, symmetric SE is required. The maximum and minimum statements on line 6 of the code segment above, namely {\tt max(1,i-halfse)} and {\tt min(nx,i+halfse)}, check for when the SE sits over the `edge' on the left or right of the series, respectively. This ensures only defined $f$ values will be used. 
 	
-\section{Line segment erosion implementation} \label{lsaR}
+\clearpage	
+	
+\subsection{Line segment erosion} 
 
 
-	\input{tex/02_erosionquick}
+	\input{tex/01_erosion_quick}
 
-
+\clearpage
 		
-\section[Naive implementation: unequally spaced values]{Naive implementation of a morphological erosion for unequally spaced values} \label{naiveclsa}
+\subsection{Naive erosion for unequally spaced values}
 
-%\begin{algorithm}                      
-%\caption{Calculate $\epsilon_B (f) (x_i)$ for all $x_i \in X$}         
-%      
- 
-\balg{Calculate $\epsilon_B (f) (x_i)$ for all $x_i \in X \subset \mathds{R}$} \label{alg1}                
-\begin{algorithmic}                    
-\REQUIRE $X= \left\{x_1,x_2,\ldots,x_n \right\}, f(X), k=SE.length$
-\FORALL{$x_i \in X$}
-\STATE find $x_l$ s.t. $x_{l-1} < x_i-\frac{k}{2} \leq x_l$
-\STATE find $x_u$ s.t. $x_{u} \leq x_i+\frac{k}{2} < x_{u+1}$
-\STATE $\epsilon_B (f) (x_i) \gets  \min \left\{ f( x_{l}), f(x_{l+1}), \dots, f(x_{i-1}), f(x_i), f(x_{i+1}), \ldots, f(x_{u-1}), f(x_u) \right\}$
-\ENDFOR
-\end{algorithmic}
-\ealg
 
-%\end{algorithm}
-
-%A {\tt R} implementation of Algorithm \ref{alg1} is given in Appendix \ref{append1}.
- 
 A vector of all the lower bounds (LB) $x_l$ in Algorithm \ref{alg1} for each corresponding $x_i$ can be created using a $O (n)$ algorithm using two pointers along the input vector $X$. One pointer is the current position, the other is a lagging pointer that moves along the vector when required. A simple algorithm to do this is described in Algorithm \ref{alg2}. To find the upper bound the same algorithm would be employed, but the pointers will start from the right and move down the vector with the second point lagging to the right.\\[15pt]
 
 
-%\begin{algorithm}
-                     
-\balg{Find a vector of length $n$ of the $x_l$s (LBs) from Algorithm \ref{alg1}}         
-\label{alg2}                           
-\begin{algorithmic}                    
-\REQUIRE $X= \left\{x_1,x_2,\ldots,x_n \right\}, k=SE.length$
-\STATE create the vector $X_{LB}$ of length $n$
-\STATE $pointer_{curr} \gets 2$
-\STATE $pointer_{LB} \gets 1$
-\STATE $X_{LB} \left[ 1 \right] \gets 1 \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \;  \; \; \; \; \; \; \; \; \; \; \; \;  \; \; \; \; $ \# \COMMENT{$x_1$ is its own LB}
-\WHILE{$pointer_{curr} \leq n$}
-\IF{$x_{pointer_{curr}}-x_{pointer_{LB}} \leq \frac{k}{2}$}
-\STATE $X_{LB} \left[ pointer_{curr} \right] \gets pointer_{LB} $
-\STATE $pointer_{curr}  \gets pointer_{curr} + 1$
-\ELSE
-\STATE $pointer_{LB}  \gets pointer_{LB} + 1 \; \; \; \; \; \; \; \; \; \; \; \; \; \; $ \# \COMMENT{check next element for LB}
-\ENDIF
-\ENDWHILE
-\RETURN $X_{LB}$
-\end{algorithmic}
-\ealg
-
-%\end{algorithm}
+	\input{tex/02_cts_erosion_slow}
 
 
-	
+	\clearpage
 
 
 
-\section{Continuous line segment erosion implementation} \label{clsa}
+\subsection{Continuous line segment erosion} 
 
-	\input{tex/03_ctserosionquick}
+
+	\input{tex/03_cts_erosion_quick}
+
+
+
+
 
 
 \clearpage
 
-\chapter{Normalisation implementation}
 
+\section{Spectra normalisation}
 
-\section{Empirical quantile normalisation implementation} \label{Quantnormcode}
+\codetab{
+\codeentry{Empirical quantile normalisation}{04\_quant\_norm.R}{msEQN()}
+\codeentry{Pairwise spectra MA normalisation}{05\_ma\_adj.R}{intensAdj()}
+}
 
-	\input{tex/04_quantnorm}
+\clearpage
+
+\subsection{Empirical quantile normalisation} 
+
+	\input{tex/04_quant_norm}
 	
 \clearpage
 
-\section{MA normalisation implementation} \label{MAnormcode}
+\subsection{Pairwise spectra MA normalisation} 
 
-	\input{tex/05_MAadj}
-	
-\clearpage
-
-\chapter{Peak alignment algorithms and implementation} \label{pacodes}
-
-
-\section{NM-alignment code} \label{nm}
-
-	\input{tex/06_NMalign}
-
-
-	\input{tex/07_guideTreePeakAlign}
-
-
-
-
-
-
-	
+	\input{tex/05_ma_adj}
 	
 \clearpage
 
 
-\chapter{Surrogate variable analysis implementation} \label{sva}
 
+
+\section{Peak alignment} \label{pacodes}
+
+
+\codetab{
+\codeentry{Calculate $W$ matrix for an $N$- and $M$-alignment}{06\_create\_w.R}{Wmatrix()}
+\codeentry{Dendrogram peak alignment}{07\_dendro\_peak\_align.R}{dendro\_peak\_align()}
+}
+\clearpage
+
+\subsection{Calculate $W$ matrix for an $N$- and $M$-alignment} 
+
+	\input{tex/06_create_w}
+
+\clearpage
+
+\subsection{Dendrogram peak alignment} 
+
+
+	\input{tex/07_dendro_peak_align}
+
+
+
+
+
+
+	
+	
+\clearpage
+
+\section{Surrogate variable analysis} \label{sva}
+
+
+\codetab{
+\codeentry{Get SVA adjusted expression matrix}{08\_do\_sva.R}{doSVA()}
+}
+
+\clearpage
+
+\subsection{Get SVA adjusted expression matrix}
 
 Please note the function \texttt{getH()} (line 47 below) is the code available in the \texttt{DanteR} package to determine the number of significant surrogate variables. The function \texttt{mulReg(Y,X)} performs sequential linear regressions on the columns of the input \texttt{Y} using a fixed effects design matrix \texttt{X}. \texttt{mulReg()} returns a list containing the following vectors and matrices: \texttt{RES}$_{n \times P}$, residual matrix after \texttt{Y} has been regressed; \texttt{BETA}$_{d \times P}$, matrix of the regression coefficients, $P$ columns for each regression; \texttt{TVALS}$_{d \times P}$, the corresponding $t$-statistics; \texttt{PVALS}$_{d \times P}$ the corresponding $p$-values of \texttt{TVALS}; \texttt{FPVALS}$_{P\times 1}$, $p$-value for each linear regression corresponding to the null model $F$-statistic.
 
-	\input{tex/08_doSVA}
+	\input{tex/08_do_sva}
+	
+	
+	
+	
 	
 \clearpage
 
 
-\chapter{Supplementary detail of classification methods} \label{PFLDA}
 
+\section{Pairwise fusion linear discriminant analysis} 
 
-\section[PFDA code]{Pairwise fusion linear discriminant analysis code} \label{PFLDAcode}
+\codetab{
+\codeentry{Create a PFDA object}{09\_create\_pfda\_obj.R}{create\_pfda\_obj()}
+\codeentry{Predict class for new data and a PFDA object}{10\_pfda\_predict.R}{pfda\_predict()}
+}
 
-	\input{tex/09_createPFldaobj.tex}
 
 \clearpage
 
-	\input{tex/10_PFldapredict.tex}
+\subsection{Create a PFDA object}
+
+	\input{tex/09_create_pfda_obj}
+
+\clearpage
+
+\subsection{Predict class for new data and a PFDA object}
+
+	\input{tex/10_pfda_predict}
 
 \clearpage
 
 
 
-\chapter{Pareto Fronts for variable ranking} \label{PFs}
+\section{Pareto Fronts for variable ranking} 
 
-\section{Dominating features} \label{domfeatcode}
+
+\codetab{
+\codeentry{Calculate dominating features}{11\_dom\_feat.c}{domfeat()}
+\codeentry{Pareto Front wrapper functions}{12\_pareto\_fronts.R}{paretoRanking()}
+}
+
+\clearpage
+
+\subsection{Calculate dominating features} 
 
 Below is the core of the Pareto Front code, finding features that are the dominated as per the definition. Written in {\tt C} to be compiled to a {\tt .so} file (or \texttt{.dll} on Windows operating systems) that in turn can be loaded into {\tt R}.
 
-	\input{tex/11_domfeat.tex}
+	\input{tex/11_dom_feat}
 
+\clearpage
 
+\subsection{Pareto Front wrapper functions} 
 
-\section{Pareto Front wrapper functions} \label{cvPFs}
-
-	\input{tex/12_ParetoFronts.tex}
+	\input{tex/12_pareto_fronts}
 
 
 \end{appendix}
 
-\clearpage
 
 
 
 
-\addtocontents{toc}{\setcounter{tocdepth}{2}}
+
+%\addtocontents{toc}{\setcounter{tocdepth}{2}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

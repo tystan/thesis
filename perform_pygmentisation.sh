@@ -34,12 +34,13 @@ VERB_OPTS="verboptions=gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize
 ## these are the files to loop over
 
 declare -a R_FILES=( \
-'01_tophatcode' '02_erosionquick' '03_ctserosionquick' \
-'04_quantnorm' '05_MAadj' '06_NMalign' '07_guideTreePeakAlign' \
-'08_doSVA' '09_createPFldaobj' '10_PFldapredict' \
-'12_ParetoFronts' \
+'00_erosion_slow' '05_ma_adj' '10_pfda_predict' \
+'01_erosion_quick' '06_create_w' \
+'02_cts_erosion_slow' '07_dendro_peak_align' '12_pareto_fronts' \
+'03_cts_erosion_quick' '08_do_sva' \
+'04_quant_norm' '09_create_pfda_obj' \
  );
-
+echo ${R_FILES[@]}
 
 #################################################
 ################## NEW: run this ################
@@ -52,7 +53,7 @@ pygmentize -O $TEX_OPTS -f tex -P $VERB_OPTS -o tex/$t".tex" R/$t".R"
 done
 
 
-pygmentize -O $TEX_OPTS -f tex -P $VERB_OPTS -o tex/11_domfeat.tex R/11_domfeat.c
+pygmentize -O $TEX_OPTS -f tex -P $VERB_OPTS -o tex/11_dom_feat.tex R/11_dom_feat.c
 
 
 
