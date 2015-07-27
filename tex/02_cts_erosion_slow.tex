@@ -48,8 +48,13 @@ erode\PYZus{}cts\PYZus{}slow\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}
 \PY{p}{\PYZob{}}
 	nx\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}x\PY{p}{)}
 	r\PYZus{}min\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
-	LO\PY{o}{\PYZlt{}\PYZhy{}}get\PYZus{}lo\PYZus{}bounds\PY{p}{(}x\PY{p}{,}k\PY{p}{)}
-	HI\PY{o}{\PYZlt{}\PYZhy{}}get\PYZus{}hi\PYZus{}bounds\PY{p}{(}x\PY{p}{,}k\PY{p}{)}
+	\PY{c+c1}{\PYZsh{} slow way to get LO and HI, removed to make comparison with erode\PYZus{}cts\PYZus{}quick() fair}
+	\PY{c+c1}{\PYZsh{}LO\PYZlt{}\PYZhy{}get\PYZus{}lo\PYZus{}bounds(x,k)}
+	\PY{c+c1}{\PYZsh{}HI\PYZlt{}\PYZhy{}get\PYZus{}hi\PYZus{}bounds(x,k)}
+	k0\PY{o}{\PYZlt{}\PYZhy{}}k\PY{o}{/}\PY{l+m}{2}
+	\PY{c+c1}{\PYZsh{} fast way to determine upper and lower indexes in R to avoid looping}
+	LO\PY{o}{\PYZlt{}\PYZhy{}}nx\PY{o}{\PYZhy{}}\PY{k+kp}{rev}\PY{p}{(}\PY{k+kp}{findInterval}\PY{p}{(}\PY{k+kp}{rev}\PY{p}{(}\PY{o}{\PYZhy{}}x\PY{p}{)}\PY{p}{,}\PY{k+kp}{rev}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{p}{(}x\PY{o}{+}k0\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{l+m}{+1}
+	HI\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{findInterval}\PY{p}{(}x\PY{o}{+}k0\PY{p}{,}x\PY{p}{)}
 	\PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nx\PY{p}{)} r\PYZus{}min\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{min}\PY{p}{(}f\PY{p}{[}LO\PY{p}{[}i\PY{p}{]}\PY{o}{:}HI\PY{p}{[}i\PY{p}{]]}\PY{p}{)}
 	\PY{k+kr}{return}\PY{p}{(}r\PYZus{}min\PY{p}{)}
 \PY{p}{\PYZcb{}}

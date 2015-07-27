@@ -47,8 +47,13 @@ erode_cts_slow<-function(x,f,k)
 {
 	nx<-length(x)
 	r_min<-rep(0,nx)
-	LO<-get_lo_bounds(x,k)
-	HI<-get_hi_bounds(x,k)
+	# slow way to get LO and HI, removed to make comparison with erode_cts_quick() fair
+	#LO<-get_lo_bounds(x,k)
+	#HI<-get_hi_bounds(x,k)
+	k0<-k/2
+	# fast way to determine upper and lower indexes in R to avoid looping
+	LO<-nx-rev(findInterval(rev(-x),rev(-(x+k0))))+1
+	HI<-findInterval(x+k0,x)
 	for(i in 1:nx) r_min[i]<-min(f[LO[i]:HI[i]])
 	return(r_min)
 }
