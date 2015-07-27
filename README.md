@@ -19,16 +19,16 @@ The files referenced below are hyperlinked for ease of navigation.
 ---
 
 
-The information below is only required for those hoping to reproduce [`AppendixRCode.pdf`](../blob/master/AppendixRCode.pdf) using LaTeX.
+ :green_book: The information below is only required for those hoping to reproduce [`AppendixRCode.pdf`](../blob/master/AppendixRCode.pdf) using LaTeX. :green_book:
 
----
+
 
 
 * The top-level file [`AppendixRCode.tex`](../master/AppendixRCode.tex) is the TeX file required to generate [`AppendixRCode.pdf`](../master/AppendixRCode.pdf). 
     * The directory [`tex/`](../../tree/master/tex/) contains the source files referenced in [`AppendixRCode.tex`](../master/AppendixRCode.tex). 
 
 
-##### :green_book: Pygments :green_book:
+##### Pygments 
 
 The [Pygments](http://pygments.org/) command-line tool was used to perform syntax highlighting and mathematical notation markup from source code comment text. [Pygments](http://pygments.org/) can convert `R` files (and many other programming languages) into syntax highlighted `Verbatim`environment `LaTeX` markup as `.tex` files. Many thanks to the authors and maintainers of this freely available software.
 * The file [`perform_pygmentisation.sh`](../master/perform_pygmentisation.sh) is the command-line input (for unix-alike platforms) used to convert the files in [`R/`](../../tree/master/R/) to the files in [`tex/`](../../tree/master/tex/). This requires Pygments to be installed.
