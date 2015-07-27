@@ -17,9 +17,10 @@ The files referenced below are hyperlinked for ease of navigation.
  
 ---
 ---
+---
 
 
- :green_book: The information below is only required for those hoping to reproduce [`AppendixRCode.pdf`](../blob/master/AppendixRCode.pdf) using LaTeX. :green_book:
+#####  :green_book: The information below is only required for those hoping to reproduce [`AppendixRCode.pdf`](../blob/master/AppendixRCode.pdf) using LaTeX. :green_book:
 
 
 
