@@ -1,14 +1,14 @@
 \begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
-\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} FUNCTION: PFldapredict()}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} FUNCTION: pfda\PYZus{}predict()}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} estimate probabilities and class of new inputs}
 
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} input:}
-\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} ldaobj: an object created by createPFldaobj()}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} ldaobj: an object created by create\PYZus{}pfda\PYZus{}obj()}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Xnew: a n x p matrix, of n obs and p variables. }
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}         May also be a single numeric vector (n=1) of length p}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} priors: a vector of length K (\PYZsh{}classes) with elements in (0,1)}
 
-PFldapredict\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}ldaobj\PY{p}{,}Xnew\PY{p}{,}priors\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{)}
+pfda\PYZus{}predict\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}ldaobj\PY{p}{,}Xnew\PY{p}{,}priors\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{)}
 \PY{p}{\PYZob{}}
   \PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{is.vector}\PY{p}{(}Xnew\PY{p}{,}mode\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{numeric\PYZdq{}}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZob{}}
     Xnew\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kt}{matrix}\PY{p}{(}Xnew\PY{p}{,}nrow\PY{o}{=}\PY{l+m}{1}\PY{p}{)}

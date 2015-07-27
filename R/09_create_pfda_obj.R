@@ -1,4 +1,4 @@
-####### FUNCTION: createPFldaobj()
+####### FUNCTION: create_pfda_obj()
 ### estimate parameters of PF-DA model, so that a discrim function created
 
 ####### input:
@@ -6,7 +6,7 @@
 ### Xclass: a vector of length n of the classes (must be a factor variable)
 ### priors: a vector of length K (#classes) with elements in (0,1)
 
-createPFldaobj<-function(X,Xclass,lambdar=1,priors=NULL,alph=NULL,wts=NULL)
+create_pfda_obj<-function(X,Xclass,lambdar=1,priors=NULL,alph=NULL,wts=NULL)
 {
   N<-length(Xclass)
   P<-ncol(X)

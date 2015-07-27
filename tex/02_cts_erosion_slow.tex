@@ -1,5 +1,9 @@
 \begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
-get.lo.bounds\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}k\PY{p}{)}\PY{p}{\PYZob{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} get\PYZus{}lo\PYZus{}bounds() gets the index values of x[i]\PYZhy{}k/2 for x[i], $i=1,2,...,n_x$.}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} returns a vector of indexes length $n_x$}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} used by erode\PYZus{}cts\PYZus{}slow()}
+get\PYZus{}lo\PYZus{}bounds\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}k\PY{p}{)}
+\PY{p}{\PYZob{}}
 	nx \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}x\PY{p}{)}
 	k0 \PY{o}{\PYZlt{}\PYZhy{}} k\PY{o}{/}\PY{l+m}{2}
 	LO \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
@@ -17,7 +21,9 @@ get.lo.bounds\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}k\PY{
 	\PY{p}{\PYZcb{}}
 	\PY{k+kr}{return}\PY{p}{(}LO\PY{p}{)}
 \PY{p}{\PYZcb{}}
-get.hi.bounds\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}k\PY{p}{)}\PY{p}{\PYZob{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} same as get\PYZus{}lo\PYZus{}bounds() but for x[i]+k/2}
+get\PYZus{}hi\PYZus{}bounds\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}k\PY{p}{)}
+\PY{p}{\PYZob{}}
 	nx \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{length}\PY{p}{(}x\PY{p}{)}
 	k0 \PY{o}{\PYZlt{}\PYZhy{}} k\PY{o}{/}\PY{l+m}{2}
 	HI \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
@@ -35,11 +41,15 @@ get.hi.bounds\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}k\PY{
 	\PY{p}{\PYZcb{}}
 	\PY{k+kr}{return}\PY{p}{(}HI\PY{p}{)}
 \PY{p}{\PYZcb{}}
-erode.cts.slow\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}f\PY{p}{,}k\PY{p}{)}\PY{p}{\PYZob{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} x=$X$ are unevenly (or evenly) spaced locations of the intensities}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} f=$f$ are the corresponding intensity values}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} k is the SE length (size of $B$)}
+erode\PYZus{}cts\PYZus{}slow\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}x\PY{p}{,}f\PY{p}{,}k\PY{p}{)}
+\PY{p}{\PYZob{}}
 	nx\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}x\PY{p}{)}
 	r\PYZus{}min\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
-	LO\PY{o}{\PYZlt{}\PYZhy{}}get.lo.bounds\PY{p}{(}x\PY{p}{,}k\PY{p}{)}
-	HI\PY{o}{\PYZlt{}\PYZhy{}}get.hi.bounds\PY{p}{(}x\PY{p}{,}k\PY{p}{)}
+	LO\PY{o}{\PYZlt{}\PYZhy{}}get\PYZus{}lo\PYZus{}bounds\PY{p}{(}x\PY{p}{,}k\PY{p}{)}
+	HI\PY{o}{\PYZlt{}\PYZhy{}}get\PYZus{}hi\PYZus{}bounds\PY{p}{(}x\PY{p}{,}k\PY{p}{)}
 	\PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nx\PY{p}{)} r\PYZus{}min\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{min}\PY{p}{(}f\PY{p}{[}LO\PY{p}{[}i\PY{p}{]}\PY{o}{:}HI\PY{p}{[}i\PY{p}{]]}\PY{p}{)}
 	\PY{k+kr}{return}\PY{p}{(}r\PYZus{}min\PY{p}{)}
 \PY{p}{\PYZcb{}}

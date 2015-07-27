@@ -1,5 +1,5 @@
 #################################### FUNCTION ################################
-#### doSVA: Perform SVA using the model:
+#### do_sva: Perform SVA using the model:
 ####        $Y_j = \mu_j + X\alpha_j + Z\beta_j + W\delta_j + \mathbf{e}_j$
 #################################### INPUTS ##################################
 #### Y: is a $n \times p$ matrix, where each p columns are regressed
@@ -21,7 +21,7 @@
 #### W: the eigen vectors matrix
 #### H: the number of columns of W (used eigen-vectors)
 ###############################################################################
-doSVA<-function(
+do_sva<-function(
 	Y,Intercept=TRUE,X=NULL,Z=NULL,nosigsv=NULL,verbose=FALSE,seed=NULL
 ){
 	n<-nrow(Y)

@@ -1,5 +1,8 @@
-
-get.lo.bounds<-function(x,k){
+### get_lo_bounds() gets the index values of x[i]-k/2 for x[i], $i=1,2,...,n_x$.
+### returns a vector of indexes length $n_x$
+### used by erode_cts_slow()
+get_lo_bounds<-function(x,k)
+{
 	nx <- length(x)
 	k0 <- k/2
 	LO <- rep(0,nx)
@@ -17,7 +20,9 @@ get.lo.bounds<-function(x,k){
 	}
 	return(LO)
 }
-get.hi.bounds<-function(x,k){
+### same as get_lo_bounds() but for x[i]+k/2
+get_hi_bounds<-function(x,k)
+{
 	nx <- length(x)
 	k0 <- k/2
 	HI <- rep(0,nx)
@@ -35,11 +40,15 @@ get.hi.bounds<-function(x,k){
 	}
 	return(HI)
 }
-erode.cts.slow<-function(x,f,k){
+### x=$X$ are unevenly (or evenly) spaced locations of the intensities
+### f=$f$ are the corresponding intensity values
+### k is the SE length (size of $B$)
+erode_cts_slow<-function(x,f,k)
+{
 	nx<-length(x)
 	r_min<-rep(0,nx)
-	LO<-get.lo.bounds(x,k)
-	HI<-get.hi.bounds(x,k)
+	LO<-get_lo_bounds(x,k)
+	HI<-get_hi_bounds(x,k)
 	for(i in 1:nx) r_min[i]<-min(f[LO[i]:HI[i]])
 	return(r_min)
 }

@@ -2,7 +2,7 @@
 ##################################### Function ################################
 ###############################################################################
 # 
-# Wmatrix(): Create a peak similarity matrix between an N- and M-alignment
+# w_matrix(): Create a peak similarity matrix between an N- and M-alignment
 # 
 ###############################################################################
 ####################################### Input #################################
@@ -56,7 +56,7 @@
 #
 # the _j_,_b_ and _q_ co-ords are defined similarly for the M-alignment
 
-Wmatrix<-function(Nmatchedpeaks,Npeaklists,Mmatchedpeaks,Mpeaklists
+w_matrix<-function(Nmatchedpeaks,Npeaklists,Mmatchedpeaks,Mpeaklists
 					,D,expon,lambda){
 
    K<-nrow(Nmatchedpeaks)

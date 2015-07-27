@@ -1,6 +1,6 @@
 ### Input: msData - the spectra intensities in matrix
 ###        where columns are spectra $1,2,\hdots,n$
-msEmpiricalQuantNorm<-function(msData)
+quant_norm<-function(msData)
 {
 	msD<-msData
 	nSpec<-ncol(msD)

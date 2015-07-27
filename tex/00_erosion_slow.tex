@@ -1,14 +1,19 @@
 \begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
-erode\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}f\PY{p}{,}sesize\PY{p}{)} \PY{c+c1}{\PYZsh{}f are the intensities}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} f=$f$ are evenly spaced intensity values}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} k is the SE length (size of $B$)}
+erode\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}f\PY{p}{,}k\PY{p}{)} \PY{c+c1}{\PYZsh{}f are the intensities}
 \PY{p}{\PYZob{}} 
-   \PY{k+kr}{if}\PY{p}{(}\PY{o}{!}\PY{p}{(}sesize \PY{o}{\PYZpc{}\PYZpc{}} \PY{l+m}{2}\PY{p}{)}\PY{p}{)} \PY{k+kr}{return}\PY{p}{(}\PY{k+kc}{NULL}\PY{p}{)} \PY{c+c1}{\PYZsh{}SE must be of odd length}
-   nx\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}f\PY{p}{)}\PY{p}{;} erode\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}\PY{p}{;} halfse\PY{o}{\PYZlt{}\PYZhy{}}\PY{p}{(}sesize\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{o}{/}\PY{l+m}{2}\PY{p}{;}
+   \PY{k+kr}{if}\PY{p}{(}\PY{o}{!}\PY{p}{(}k \PY{o}{\PYZpc{}\PYZpc{}} \PY{l+m}{2}\PY{p}{)}\PY{p}{)} \PY{k+kr}{return}\PY{p}{(}\PY{k+kc}{NULL}\PY{p}{)} \PY{c+c1}{\PYZsh{}SE must be of odd length}
+   nx\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}f\PY{p}{)}
+   erode\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}nx\PY{p}{)}
+   \PY{c+c1}{\PYZsh{} k0 is window coverage to the left and right of centre}
+   k0\PY{o}{\PYZlt{}\PYZhy{}}\PY{p}{(}k\PY{l+m}{\PYZhy{}1}\PY{p}{)}\PY{o}{/}\PY{l+m}{2}
    \PY{k+kr}{for}\PY{p}{(}i \PY{k+kr}{in} \PY{l+m}{1}\PY{o}{:}nx\PY{p}{)} \PY{c+c1}{\PYZsh{}for each m/z point across the spectrum}
-      erode\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{min}\PY{p}{(}f\PY{p}{[}\PY{k+kp}{max}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}i\PY{o}{\PYZhy{}}halfse\PY{p}{)}\PY{o}{:}\PY{k+kp}{min}\PY{p}{(}nx\PY{p}{,}i\PY{o}{+}halfse\PY{p}{)}\PY{p}{]}\PY{p}{)}
+      erode\PY{p}{[}i\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{min}\PY{p}{(}f\PY{p}{[}\PY{k+kp}{max}\PY{p}{(}\PY{l+m}{1}\PY{p}{,}i\PY{o}{\PYZhy{}}k0\PY{p}{)}\PY{o}{:}\PY{k+kp}{min}\PY{p}{(}nx\PY{p}{,}i\PY{o}{+}k0\PY{p}{)}\PY{p}{]}\PY{p}{)}
    \PY{k+kr}{return}\PY{p}{(}erode\PY{p}{)}
 \PY{p}{\PYZcb{}} 
-\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} dilate is the same as erode except use max instead of min ...OR...}
-dilate\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}f\PY{p}{,}sesize\PY{p}{)} \PY{k+kr}{return}\PY{p}{(}\PY{o}{\PYZhy{}}erode\PY{p}{(}\PY{o}{\PYZhy{}}f\PY{p}{,}sesize\PY{p}{)}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} dilate is the same as erode except use max instead of min, or:}
+dilate\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}f\PY{p}{,}k\PY{p}{)} \PY{k+kr}{return}\PY{p}{(}\PY{o}{\PYZhy{}}erode\PY{p}{(}\PY{o}{\PYZhy{}}f\PY{p}{,}k\PY{p}{)}\PY{p}{)}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} as defined $\tau_B\left(f\right)=f-\left(f\ominus{B}\right)\oplus{B}$}
-tophat\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}f\PY{p}{,}sesize\PY{p}{)} \PY{k+kr}{return}\PY{p}{(}f\PY{o}{\PYZhy{}}dilate\PY{p}{(}erode\PY{p}{(}f\PY{p}{,}sesize\PY{p}{)}\PY{p}{,}sesize\PY{p}{)}\PY{p}{)}
+tophat\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}f\PY{p}{,}k\PY{p}{)} \PY{k+kr}{return}\PY{p}{(}f\PY{o}{\PYZhy{}}dilate\PY{p}{(}erode\PY{p}{(}f\PY{p}{,}k\PY{p}{)}\PY{p}{,}k\PY{p}{)}\PY{p}{)}
 \end{Verbatim}

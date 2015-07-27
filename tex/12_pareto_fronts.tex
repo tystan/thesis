@@ -1,6 +1,8 @@
 \begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
+\PY{c+c1}{\PYZsh{} require animation package for kfcv() function}
 \PY{k+kn}{library}\PY{p}{(}animation\PY{p}{)}
-\PY{k+kp}{dyn.load}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{domfeat.so\PYZdq{}}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} load compiled C code (shared object)}
+\PY{k+kp}{dyn.load}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{dom\PYZus{}feat.so\PYZdq{}}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
@@ -19,7 +21,7 @@
 \PY{c+c1}{\PYZsh{} length $n$ vector) FALSE=Pareto front, TRUE=dominated observation}
 \PY{c+c1}{\PYZsh{}}
 
-domFeaturesPW\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}obj\PY{p}{,}istomin\PY{p}{)}
+dom\PYZus{}features\PYZus{}pw\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}obj\PY{p}{,}istomin\PY{p}{)}
 \PY{p}{\PYZob{}}
 	\PY{c+c1}{\PYZsh{}if to be minimised then just make negative and maximise}
 	obj\PY{p}{[}\PY{p}{,}istomin\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}} \PY{o}{\PYZhy{}}obj\PY{p}{[}\PY{p}{,}istomin\PY{p}{]} 
@@ -28,7 +30,7 @@ domFeaturesPW\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}obj\PY{p}{,}ist
 	obj2\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.double}\PY{p}{(}obj\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{p}{)}
 	domvec\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.integer}\PY{p}{(}\PY{k+kp}{rep}\PY{p}{(}\PY{l+m}{0}\PY{p}{,}n\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}output vector}
 	
-	\PY{k+kr}{return}\PY{p}{(}\PY{k+kp}{as.logical}\PY{p}{(}\PY{l+m}{.}C\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{domfeat\PYZdq{}}\PY{p}{,}n\PY{p}{,}obj1\PY{p}{,}obj2\PY{p}{,}domvec\PY{p}{)}\PY{p}{[[}\PY{l+m}{4}\PY{p}{]]}\PY{p}{)}\PY{p}{)}
+	\PY{k+kr}{return}\PY{p}{(}\PY{k+kp}{as.logical}\PY{p}{(}\PY{l+m}{.}C\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{dom\PYZus{}feat\PYZdq{}}\PY{p}{,}n\PY{p}{,}obj1\PY{p}{,}obj2\PY{p}{,}domvec\PY{p}{)}\PY{p}{[[}\PY{l+m}{4}\PY{p}{]]}\PY{p}{)}\PY{p}{)}
 \PY{p}{\PYZcb{}}
 	
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
@@ -48,7 +50,7 @@ domFeaturesPW\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}obj\PY{p}{,}ist
 \PY{c+c1}{\PYZsh{} same as pairwise but the input can take more than two objective functions}
 \PY{c+c1}{\PYZsh{}}
 
-domFeatures\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}objmatrix\PY{p}{,}istominvec\PY{p}{)}
+dom\PYZus{}features\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}objmatrix\PY{p}{,}istominvec\PY{p}{)}
 \PY{p}{\PYZob{}}
 	n\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.integer}\PY{p}{(}\PY{k+kp}{nrow}\PY{p}{(}objmatrix\PY{p}{)}\PY{p}{)}
 	m\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{ncol}\PY{p}{(}objmatrix\PY{p}{)}
@@ -63,7 +65,7 @@ domFeatures\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}objmatrix\PY{p}{,
 		\PY{c+c1}{\PYZsh{} call pairwise function, take the intersection of previous }
 		\PY{c+c1}{\PYZsh{} dominated observations remembering the intersection(s)}
 		\PY{c+c1}{\PYZsh{} of dominated in the same as unions(s) of Pareto fronts}
-		vecdomvec\PY{o}{\PYZlt{}\PYZhy{}}vecdomvec \PY{o}{*} \PY{l+m}{.}C\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{domfeat\PYZdq{}}
+		vecdomvec\PY{o}{\PYZlt{}\PYZhy{}}vecdomvec \PY{o}{*} \PY{l+m}{.}C\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{dom\PYZus{}feat\PYZdq{}}
 							\PY{p}{,}n
 							\PY{p}{,}\PY{k+kp}{as.double}\PY{p}{(}objmatrix\PY{p}{[}\PY{p}{,}indxs\PY{p}{[}\PY{l+m}{1}\PY{p}{,}i\PY{p}{]]}\PY{p}{)}
 							\PY{p}{,}\PY{k+kp}{as.double}\PY{p}{(}objmatrix\PY{p}{[}\PY{p}{,}indxs\PY{p}{[}\PY{l+m}{2}\PY{p}{,}i\PY{p}{]]}\PY{p}{)}
@@ -85,7 +87,7 @@ domFeatures\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}objmatrix\PY{p}{,
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
 
-paretoFronts\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}noFronts\PY{p}{,}objmatrix\PY{p}{,}istominvec\PY{p}{)}
+pareto\PYZus{}fronts\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}noFronts\PY{p}{,}objmatrix\PY{p}{,}istominvec\PY{p}{)}
 \PY{p}{\PYZob{}}
 	objmatrix\PY{p}{[}\PY{p}{,}istominvec\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}} \PY{o}{\PYZhy{}}objmatrix\PY{p}{[}\PY{p}{,}istominvec\PY{p}{]}
 	n\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{as.integer}\PY{p}{(}\PY{k+kp}{nrow}\PY{p}{(}objmatrix\PY{p}{)}\PY{p}{)}
@@ -103,7 +105,7 @@ paretoFronts\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}noFronts\PY{p}{,
 	\PY{k+kr}{while}\PY{p}{(}i\PY{o}{\PYZlt{}}noFronts \PY{o}{\PYZam{}\PYZam{}} \PY{o}{!}allFrontsFound\PY{p}{)} \PY{c+c1}{\PYZsh{}go thru all fronts required}
 	\PY{p}{\PYZob{}}
 		i\PY{o}{\PYZlt{}\PYZhy{}}i\PY{l+m}{+1}
-		df\PY{o}{\PYZlt{}\PYZhy{}}domFeatures\PY{p}{(}objmatrix\PY{p}{,}\PY{k+kp}{rep}\PY{p}{(}\PY{k+kc}{FALSE}\PY{p}{,}m\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}general m obj vectors function}
+		df\PY{o}{\PYZlt{}\PYZhy{}}dom\PYZus{}features\PY{p}{(}objmatrix\PY{p}{,}\PY{k+kp}{rep}\PY{p}{(}\PY{k+kc}{FALSE}\PY{p}{,}m\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}general m obj vectors function}
 		\PY{c+c1}{\PYZsh{} pf.i are the indexs of the output vector that need to be updated }
 		\PY{c+c1}{\PYZsh{} with the pareto front number}
 		pf.i\PY{o}{\PYZlt{}\PYZhy{}}\PY{p}{(}\PY{o}{!}df\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}pfvec\PY{o}{\PYZlt{}}\PY{l+m}{1}\PY{p}{)} 
@@ -112,7 +114,7 @@ paretoFronts\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}noFronts\PY{p}{,
 		objmatrix\PY{p}{[}pf.i\PY{p}{,}\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}ourInfs
 		\PY{k+kr}{if}\PY{p}{(}\PY{k+kp}{all}\PY{p}{(}pfvec\PY{o}{\PYZgt{}}\PY{l+m}{0}\PY{p}{)}\PY{p}{)} allFrontsFound\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kc}{TRUE}
 	\PY{p}{\PYZcb{}}
-	\PY{k+kr}{return}\PY{p}{(}pfvec\PY{p}{)}	
+	\PY{k+kr}{return}\PY{p}{(}pfvec\PY{p}{)}
 \PY{p}{\PYZcb{}}
 
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
@@ -131,7 +133,7 @@ paretoFronts\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}noFronts\PY{p}{,
 \PY{c+c1}{\PYZsh{} validation fold=1 or the length of the input (i.e. n) creates }
 \PY{c+c1}{\PYZsh{} leave\PYZhy{}one\PYZhy{}out cross validation}
 
-paretoRanking\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}objmatrix\PY{p}{,}istominvec\PY{p}{,}noFronts\PY{o}{=}\PY{l+m}{20}\PY{p}{,}folds\PY{o}{=}\PY{l+m}{1}\PY{p}{,}reps\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
+pareto\PYZus{}ranking\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}objmatrix\PY{p}{,}istominvec\PY{p}{,}noFronts\PY{o}{=}\PY{l+m}{20}\PY{p}{,}folds\PY{o}{=}\PY{l+m}{1}\PY{p}{,}reps\PY{o}{=}\PY{l+m}{5}\PY{p}{)}
 \PY{p}{\PYZob{}}
 	objmatrix\PY{p}{[}\PY{p}{,}istominvec\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}} \PY{o}{\PYZhy{}}objmatrix\PY{p}{[}\PY{p}{,}istominvec\PY{p}{]}
 	m\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{ncol}\PY{p}{(}objmatrix\PY{p}{)}
@@ -152,7 +154,7 @@ paretoRanking\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}objmatrix\PY{p}
 		\PY{p}{\PYZob{}}
 			rows\PY{o}{\PYZlt{}\PYZhy{}}k.f.mat\PY{p}{[}k.f.mat\PY{p}{[}\PY{p}{,}\PY{l+m}{2}\PY{p}{]}\PY{o}{==}i\PY{p}{,}\PY{l+m}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{} find the ith fold to leave out}
 			\PY{c+c1}{\PYZsh{} call general function with ith fold removed}
-			calcfronts\PY{o}{\PYZlt{}\PYZhy{}}paretoFronts\PY{p}{(}noFronts\PY{p}{,}objmatrix\PY{p}{[}\PY{o}{\PYZhy{}}rows\PY{p}{,}\PY{p}{]}\PY{p}{,}\PY{k+kp}{rep}\PY{p}{(}\PY{k+kc}{FALSE}\PY{p}{,}m\PY{p}{)}\PY{p}{)}
+			calcfronts\PY{o}{\PYZlt{}\PYZhy{}}pareto\PYZus{}fronts\PY{p}{(}noFronts\PY{p}{,}objmatrix\PY{p}{[}\PY{o}{\PYZhy{}}rows\PY{p}{,}\PY{p}{]}\PY{p}{,}\PY{k+kp}{rep}\PY{p}{(}\PY{k+kc}{FALSE}\PY{p}{,}m\PY{p}{)}\PY{p}{)}
 			\PY{c+c1}{\PYZsh{} which are non\PYZhy{}dominated}
 			whichnondom\PY{o}{\PYZlt{}\PYZhy{}}calcfronts\PY{o}{\PYZgt{}}\PY{l+m}{0}
 			\PY{c+c1}{\PYZsh{} if you are ont the first front you get 1, second=1/2, third=1/3,}

@@ -1,6 +1,6 @@
 #include <R.h> 
 
-void domfeat(int *n, double *obja, double *objb, int *domvec)
+void dom_feat(int *n, double *obja, double *objb, int *domvec)
 {
 	int i, j, nonDomI;
 	for (i=0; i<*n; i++)

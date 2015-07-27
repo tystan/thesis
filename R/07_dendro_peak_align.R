@@ -2,7 +2,7 @@
 ##################################### Function ################################
 ###############################################################################
 # 
-# guideTreePeakAlign(): for peak list data, create successive N- and M-alignments
+# dendro_peak_align(): for peak list data, create successive N- and M-alignments
 #              until all spectra are aligned.
 # 
 ###############################################################################
@@ -47,7 +47,7 @@
 # 				for the j-th peak for the i-th spectrum
 # NB: each list item is a ($n_{Comp}$+1) x $n_N$ matrix
 
-guideTreePeakAlign<-function(msD,peaklistlist,in.param)
+dendro_peak_align<-function(msD,peaklistlist,in.param)
 {
 
 	D<-in.param[1]

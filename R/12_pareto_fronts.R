@@ -1,6 +1,7 @@
-
+# require animation package for kfcv() function
 library(animation)
-dyn.load("domfeat.so")
+# load compiled C code (shared object)
+dyn.load("dom_feat.so")
 
 ##########################################
 ##########################################
@@ -19,7 +20,7 @@ dyn.load("domfeat.so")
 # length $n$ vector) FALSE=Pareto front, TRUE=dominated observation
 #
 
-domFeaturesPW<-function(obj,istomin)
+dom_features_pw<-function(obj,istomin)
 {
 	#if to be minimised then just make negative and maximise
 	obj[,istomin]<- -obj[,istomin] 
@@ -28,7 +29,7 @@ domFeaturesPW<-function(obj,istomin)
 	obj2<-as.double(obj[,2])
 	domvec<-as.integer(rep(0,n)) #output vector
 	
-	return(as.logical(.C("domfeat",n,obj1,obj2,domvec)[[4]]))
+	return(as.logical(.C("dom_feat",n,obj1,obj2,domvec)[[4]]))
 }
 	
 ##########################################
@@ -48,7 +49,7 @@ domFeaturesPW<-function(obj,istomin)
 # same as pairwise but the input can take more than two objective functions
 #
 
-domFeatures<-function(objmatrix,istominvec)
+dom_features<-function(objmatrix,istominvec)
 {
 	n<-as.integer(nrow(objmatrix))
 	m<-ncol(objmatrix)
@@ -63,7 +64,7 @@ domFeatures<-function(objmatrix,istominvec)
 		# call pairwise function, take the intersection of previous 
 		# dominated observations remembering the intersection(s)
 		# of dominated in the same as unions(s) of Pareto fronts
-		vecdomvec<-vecdomvec * .C("domfeat"
+		vecdomvec<-vecdomvec * .C("dom_feat"
 							,n
 							,as.double(objmatrix[,indxs[1,i]])
 							,as.double(objmatrix[,indxs[2,i]])
@@ -85,7 +86,7 @@ domFeatures<-function(objmatrix,istominvec)
 ##########################################
 ##########################################
 
-paretoFronts<-function(noFronts,objmatrix,istominvec)
+pareto_fronts<-function(noFronts,objmatrix,istominvec)
 {
 	objmatrix[,istominvec]<- -objmatrix[,istominvec]
 	n<-as.integer(nrow(objmatrix))
@@ -103,7 +104,7 @@ paretoFronts<-function(noFronts,objmatrix,istominvec)
 	while(i<noFronts && !allFrontsFound) #go thru all fronts required
 	{
 		i<-i+1
-		df<-domFeatures(objmatrix,rep(FALSE,m)) #general m obj vectors function
+		df<-dom_features(objmatrix,rep(FALSE,m)) #general m obj vectors function
 		# pf.i are the indexs of the output vector that need to be updated 
 		# with the pareto front number
 		pf.i<-(!df) & (pfvec<1) 
@@ -112,7 +113,7 @@ paretoFronts<-function(noFronts,objmatrix,istominvec)
 		objmatrix[pf.i,]<-ourInfs
 		if(all(pfvec>0)) allFrontsFound<-TRUE
 	}
-	return(pfvec)	
+	return(pfvec)
 }
 
 ##########################################
@@ -131,7 +132,7 @@ paretoFronts<-function(noFronts,objmatrix,istominvec)
 # validation fold=1 or the length of the input (i.e. n) creates 
 # leave-one-out cross validation
 
-paretoRanking<-function(objmatrix,istominvec,noFronts=20,folds=1,reps=5)
+pareto_ranking<-function(objmatrix,istominvec,noFronts=20,folds=1,reps=5)
 {
 	objmatrix[,istominvec]<- -objmatrix[,istominvec]
 	m<-ncol(objmatrix)
@@ -152,7 +153,7 @@ paretoRanking<-function(objmatrix,istominvec,noFronts=20,folds=1,reps=5)
 		{
 			rows<-k.f.mat[k.f.mat[,2]==i,1] # find the ith fold to leave out
 			# call general function with ith fold removed
-			calcfronts<-paretoFronts(noFronts,objmatrix[-rows,],rep(FALSE,m))
+			calcfronts<-pareto_fronts(noFronts,objmatrix[-rows,],rep(FALSE,m))
 			# which are non-dominated
 			whichnondom<-calcfronts>0
 			# if you are ont the first front you get 1, second=1/2, third=1/3,

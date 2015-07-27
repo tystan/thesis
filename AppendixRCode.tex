@@ -59,7 +59,11 @@
 
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%      Some commands for repeated markup        
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \definecolor{linkblue}{rgb}{0.192,0.494,0.675}
@@ -76,16 +80,30 @@
 \end{tabular}
 \end{center}
 }
+
 \newcommand{\codeentry}[3]{%
 \multicolumn{3}{l}{\textsf{#1:}} \\
  &  \texttt{\textcolor{linkblue}{/#2}}  & \textcolor{fngrey}{\texttt{#3}} \\ %
 }
 
+\newcommand{\codeinp}[1]{%
+\input{tex/#1}%
+\clearpage%
+}
 
+\newcommand{\pagevertcentre}[1]{%
+\pagestyle{plain}%
+%\topskip0pt
+\vspace*{\fill}
+#1
+\vspace*{\fill}
+\clearpage%
+\pagestyle{fancy}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%      Appendices        %%%%%%%%%%
+%%%%%%%%%      Appendices        
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -96,9 +114,6 @@
 \renewcommand{\theequation}{\Alph{chapter}.\arabic{equation}} %\arabic{section}.
  
 
-%\renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}%.\arabic{section}
-%\renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}%.\arabic{section}
-%\renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}%.\arabic{section}
 
 \begin{appendix}
 
@@ -119,10 +134,9 @@ All files referenced in the current appendix are available under the directory a
 \clearpage
 
 
+
+\pagevertcentre{
 \section{Morphological operators}
-
-
-
 \begin{center}
 \begin{tabular}{m{3cm}m{5cm}r}
 \hline
@@ -135,177 +149,124 @@ All files referenced in the current appendix are available under the directory a
    \hline
 \end{tabular}
 \end{center}
+}
 
-\clearpage
 
 \subsection{Naive erosion and top-hat} 
 
-Consider $x \in \left\{ 1,2,\ldots,n \right\} = X$ and $ f \left( x \right) \in \mathds{R} \; \; \forall x \in X$. Because of the assumed even spacing of the elements of $X$, the {\tt R}-function below simply requires the vector of intensities, $f$, and the size of the SE. \\
+Below is a simple (and naive) implementation of an erosion, dilation and top-hat operator for $x \in \left\{ 1,2,\ldots,n \right\} = X$ and $ f \left( x \right) \in \mathds{R} \; \; \forall x \in X$. Because of the assumed even spacing of the elements of $X$, the {\tt R}-function below simply requires the vector of intensities, $f$, and the size of the SE. 
 
+Please note the code checks the SE size provided is an odd integer because symmetric SE is not possible with an even SE size. The maximum and minimum statements on line 11 of the code segment below, namely {\tt max(1,i-k0)} and {\tt min(nx,i+k0)}, check for when the SE sits over the `edge' on the left or right of the series, respectively. This ensures only defined $f$ values will be used. \\
+\codeinp{00_erosion_slow}
 
-	\input{tex/00_erosion_slow}
-
-\vskip12pt
-
-
-Note, the code checks the SE provided is an odd integer as a centred, symmetric SE is required. The maximum and minimum statements on line 6 of the code segment above, namely {\tt max(1,i-halfse)} and {\tt min(nx,i+halfse)}, check for when the SE sits over the `edge' on the left or right of the series, respectively. This ensures only defined $f$ values will be used. 
 	
-\clearpage	
 	
 \subsection{Line segment erosion} 
 
+\codeinp{01_erosion_quick}
 
-	\input{tex/01_erosion_quick}
 
-\clearpage
 		
 \subsection{Naive erosion for unequally spaced values}
 
 
-A vector of all the lower bounds (LB) $x_l$ in Algorithm \ref{alg1} for each corresponding $x_i$ can be created using a $O (n)$ algorithm using two pointers along the input vector $X$. One pointer is the current position, the other is a lagging pointer that moves along the vector when required. A simple algorithm to do this is described in Algorithm \ref{alg2}. To find the upper bound the same algorithm would be employed, but the pointers will start from the right and move down the vector with the second point lagging to the right.\\[15pt]
-
-
-	\input{tex/02_cts_erosion_slow}
-
-
-	\clearpage
+The function \texttt{get\_lo\_bounds()} creates a vector, \texttt{LO}, of all the lower bounds indexes such that $\texttt{LO[i]}=\arg\min_{j} x_j \geq x_i - k/2$ for each $x_i$, $i=1,2,\hdots,n$. This function implements an $O (n)$ algorithm using two pointers that move along the input vector $X$ from left to right. One pointer is the current position, the other is a lagging pointer that moves along the vector when required. To find the upper bounds, the same algorithm would is employed but the pointers start from the right and move down the vector with the second point lagging to the right.\\
+\codeinp{02_cts_erosion_slow}
 
 
 
 \subsection{Continuous line segment erosion} 
-
-
-	\input{tex/03_cts_erosion_quick}
-
+\codeinp{03_cts_erosion_quick}
 
 
 
-
-
-\clearpage
-
-
+\pagevertcentre{
 \section{Spectra normalisation}
-
 \codetab{
-\codeentry{Empirical quantile normalisation}{04\_quant\_norm.R}{msEQN()}
-\codeentry{Pairwise spectra MA normalisation}{05\_ma\_adj.R}{intensAdj()}
+\codeentry{Empirical quantile normalisation}{04\_quant\_norm.R}{quant\_norm()}
+\codeentry{Pairwise spectra MA normalisation}{05\_ma\_adj.R}{ma\_adj()}
+}
 }
 
-\clearpage
 
 \subsection{Empirical quantile normalisation} 
-
-	\input{tex/04_quant_norm}
+\codeinp{04_quant_norm}
 	
-\clearpage
+
 
 \subsection{Pairwise spectra MA normalisation} 
-
-	\input{tex/05_ma_adj}
+\codeinp{05_ma_adj}
 	
-\clearpage
 
 
 
 
+\pagevertcentre{
 \section{Peak alignment} \label{pacodes}
-
-
 \codetab{
-\codeentry{Calculate $W$ matrix for an $N$- and $M$-alignment}{06\_create\_w.R}{Wmatrix()}
+\codeentry{Calculate $W$ matrix for an $N$- and $M$-alignment}{06\_create\_w.R}{w\_matrix()}
 \codeentry{Dendrogram peak alignment}{07\_dendro\_peak\_align.R}{dendro\_peak\_align()}
 }
-\clearpage
-
-\subsection{Calculate $W$ matrix for an $N$- and $M$-alignment} 
-
-	\input{tex/06_create_w}
-
-\clearpage
-
-\subsection{Dendrogram peak alignment} 
-
-
-	\input{tex/07_dendro_peak_align}
-
-
-
-
-
-
-	
-	
-\clearpage
-
-\section{Surrogate variable analysis} \label{sva}
-
-
-\codetab{
-\codeentry{Get SVA adjusted expression matrix}{08\_do\_sva.R}{doSVA()}
 }
 
-\clearpage
+\subsection{Calculate $W$ matrix for an $N$- and $M$-alignment} 
+\codeinp{06_create_w}
+
+
+\subsection{Dendrogram peak alignment} 
+\codeinp{07_dendro_peak_align}
+
+
+
+
+\pagevertcentre{
+\section{Surrogate variable analysis} \label{sva}
+\codetab{
+\codeentry{Get SVA adjusted expression matrix}{08\_do\_sva.R}{do\_sva()}
+}
+}
+
 
 \subsection{Get SVA adjusted expression matrix}
-
-Please note the function \texttt{getH()} (line 47 below) is the code available in the \texttt{DanteR} package to determine the number of significant surrogate variables. The function \texttt{mulReg(Y,X)} performs sequential linear regressions on the columns of the input \texttt{Y} using a fixed effects design matrix \texttt{X}. \texttt{mulReg()} returns a list containing the following vectors and matrices: \texttt{RES}$_{n \times P}$, residual matrix after \texttt{Y} has been regressed; \texttt{BETA}$_{d \times P}$, matrix of the regression coefficients, $P$ columns for each regression; \texttt{TVALS}$_{d \times P}$, the corresponding $t$-statistics; \texttt{PVALS}$_{d \times P}$ the corresponding $p$-values of \texttt{TVALS}; \texttt{FPVALS}$_{P\times 1}$, $p$-value for each linear regression corresponding to the null model $F$-statistic.
-
-	\input{tex/08_do_sva}
-	
-	
-	
-	
-	
-\clearpage
+Please note the function \texttt{getH()} (line 47 below) is the code available in the \texttt{DanteR} package to determine the number of significant surrogate variables. The function \texttt{mulReg(Y,X)} performs sequential linear regressions on the columns of the input \texttt{Y} using a fixed effects design matrix \texttt{X}. \texttt{mulReg()} returns a list containing the following vectors and matrices: \texttt{RES}$_{n \times P}$, residual matrix after \texttt{Y} has been regressed; \texttt{BETA}$_{d \times P}$, matrix of the regression coefficients, $P$ columns for each regression; \texttt{TVALS}$_{d \times P}$, the corresponding $t$-statistics; \texttt{PVALS}$_{d \times P}$ the corresponding $p$-values of \texttt{TVALS}; \texttt{FPVALS}$_{P\times 1}$, $p$-value for each linear regression corresponding to the null model $F$-statistic.\\
+\codeinp{08_do_sva}
 
 
-
+\pagevertcentre{
 \section{Pairwise fusion linear discriminant analysis} 
-
 \codetab{
 \codeentry{Create a PFDA object}{09\_create\_pfda\_obj.R}{create\_pfda\_obj()}
 \codeentry{Predict class for new data and a PFDA object}{10\_pfda\_predict.R}{pfda\_predict()}
 }
-
-
-\clearpage
-
-\subsection{Create a PFDA object}
-
-	\input{tex/09_create_pfda_obj}
-
-\clearpage
-
-\subsection{Predict class for new data and a PFDA object}
-
-	\input{tex/10_pfda_predict}
-
-\clearpage
-
-
-
-\section{Pareto Fronts for variable ranking} 
-
-
-\codetab{
-\codeentry{Calculate dominating features}{11\_dom\_feat.c}{domfeat()}
-\codeentry{Pareto Front wrapper functions}{12\_pareto\_fronts.R}{paretoRanking()}
 }
 
-\clearpage
+
+
+\subsection{Create a PFDA object}
+\codeinp{09_create_pfda_obj}
+
+
+\subsection{Predict class for new data and a PFDA object}
+\codeinp{10_pfda_predict}
+
+
+
+\pagevertcentre{
+\section{Pareto Fronts for variable ranking} 
+\codetab{
+\codeentry{Calculate dominating features}{11\_dom\_feat.c}{dom\_feat()}
+\codeentry{Pareto Front wrapper functions}{12\_pareto\_fronts.R}{pareto\_ranking()}
+}
+}
+
 
 \subsection{Calculate dominating features} 
+Below is the core of the Pareto Front code, finding features that are the dominated as per the definition. Written in {\tt C} to be compiled to a {\tt .so} file (or \texttt{.dll} on Windows operating systems) that in turn can be loaded into {\tt R}.\\
+\codeinp{11_dom_feat}
 
-Below is the core of the Pareto Front code, finding features that are the dominated as per the definition. Written in {\tt C} to be compiled to a {\tt .so} file (or \texttt{.dll} on Windows operating systems) that in turn can be loaded into {\tt R}.
-
-	\input{tex/11_dom_feat}
-
-\clearpage
 
 \subsection{Pareto Front wrapper functions} 
-
-	\input{tex/12_pareto_fronts}
+\input{tex/12_pareto_fronts}
 
 
 \end{appendix}

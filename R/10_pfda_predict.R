@@ -1,13 +1,13 @@
-####### FUNCTION: PFldapredict()
+####### FUNCTION: pfda_predict()
 ### estimate probabilities and class of new inputs
 
 ####### input:
-### ldaobj: an object created by createPFldaobj()
+### ldaobj: an object created by create_pfda_obj()
 ### Xnew: a n x p matrix, of n obs and p variables. 
 ###         May also be a single numeric vector (n=1) of length p
 ### priors: a vector of length K (#classes) with elements in (0,1)
 
-PFldapredict<-function(ldaobj,Xnew,priors=NULL)
+pfda_predict<-function(ldaobj,Xnew,priors=NULL)
 {
   if(is.vector(Xnew,mode="numeric")){
     Xnew<-matrix(Xnew,nrow=1)

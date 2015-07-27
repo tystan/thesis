@@ -1,25 +1,25 @@
 \begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
-\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} adjM(): Used by intensAdj(), performs LOESS regression on ordered MA\PYZhy{}vals}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} m\PYZus{}adj(): Used by ma\PYZus{}adj(), performs LOESS regression on ordered MA\PYZhy{}vals}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Input: ordered dependent variable $A$ with corresponding $M$}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Returns: adjusted $M$ values, $M_t^*$}
-adjM\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}ordered.M\PY{p}{,}ordered.A\PY{p}{)}
+m\PYZus{}adj\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}ordered\PYZus{}M\PY{p}{,}ordered\PYZus{}A\PY{p}{)}
 \PY{p}{\PYZob{}}
-	MA.finites\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{is.finite}\PY{p}{(}ordered.M\PY{p}{)} \PY{c+c1}{\PYZsh{}only include values $>-\infty$}
-	finites.M\PY{o}{\PYZlt{}\PYZhy{}}ordered.M\PY{p}{[}MA.finites\PY{p}{]}
-	finites.A\PY{o}{\PYZlt{}\PYZhy{}}ordered.A\PY{p}{[}MA.finites\PY{p}{]}
+	MA\PYZus{}finites\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{is.finite}\PY{p}{(}ordered\PYZus{}M\PY{p}{)} \PY{c+c1}{\PYZsh{}only include values $>-\infty$}
+	finites\PYZus{}M\PY{o}{\PYZlt{}\PYZhy{}}ordered\PYZus{}M\PY{p}{[}MA\PYZus{}finites\PY{p}{]}
+	finites\PYZus{}A\PY{o}{\PYZlt{}\PYZhy{}}ordered\PYZus{}A\PY{p}{[}MA\PYZus{}finites\PY{p}{]}
 	
-	MAloess\PY{o}{\PYZlt{}\PYZhy{}}loess\PY{p}{(}finites.M\PY{o}{\PYZti{}}finites.A
+	MAloess\PY{o}{\PYZlt{}\PYZhy{}}loess\PY{p}{(}finites\PYZus{}M\PY{o}{\PYZti{}}finites\PYZus{}A
 		\PY{p}{,}span\PY{o}{=}\PY{l+m}{0.40}\PY{p}{,}degree\PY{o}{=}\PY{l+m}{2}\PY{p}{,}family\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{symmetric\PYZdq{}}\PY{p}{,}normalize\PY{o}{=}\PY{k+kc}{FALSE}\PY{p}{)}
 
-	finites.M\PY{o}{\PYZlt{}\PYZhy{}}finites.M\PY{o}{\PYZhy{}}MAloess\PY{o}{\PYZdl{}}fitted \PY{c+c1}{\PYZsh{} make adjustments }
-	ordered.M\PY{p}{[}MA.finites\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}finites.M \PY{c+c1}{\PYZsh{} and return adjusted values}
-	\PY{k+kr}{return}\PY{p}{(}ordered.M\PY{p}{)}
-\PY{p}{\PYZcb{}}	
+	finites\PYZus{}M\PY{o}{\PYZlt{}\PYZhy{}}finites\PYZus{}M\PY{o}{\PYZhy{}}MAloess\PY{o}{\PYZdl{}}fitted \PY{c+c1}{\PYZsh{} make adjustments }
+	ordered\PYZus{}M\PY{p}{[}MA\PYZus{}finites\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}finites\PYZus{}M \PY{c+c1}{\PYZsh{} and return adjusted values}
+	\PY{k+kr}{return}\PY{p}{(}ordered\PYZus{}M\PY{p}{)}
+\PY{p}{\PYZcb{}}
 
-\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} intensAdj(): Perform MA adjustment on two vectors}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} ma\PYZus{}adj(): Perform MA adjustment on two vectors}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Input: Two spectra vectors $F_1$ and $F_2$}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Returns: MA adjusted $F_1$ and $F_2$ values, $F_1^*$ and $F_2^*$ respectively}
-intensAdj\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}F1\PY{p}{,}F2\PY{p}{)}
+ma\PYZus{}adj\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}F1\PY{p}{,}F2\PY{p}{)}
 \PY{p}{\PYZob{}}
 	t1\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{proc.time}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m}{3}\PY{p}{]} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} get start time}
 	V1\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{log2}\PY{p}{(}F1\PY{p}{)} \PY{c+c1}{\PYZsh{} Will produce $-\infty$ for $\log_2(0)$}
@@ -27,21 +27,21 @@ intensAdj\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}F1\PY{p}{,}F2\PY{p}
 	M\PY{o}{\PYZlt{}\PYZhy{}}V1\PY{o}{\PYZhy{}}V2
 	A\PY{o}{\PYZlt{}\PYZhy{}}\PY{p}{(}V1\PY{o}{+}V2\PY{p}{)}\PY{o}{/}\PY{l+m}{2}
 	\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} $A$ is the dependent regression variable,}
-	\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} ordering required for adjM function}
-	ordered.indxs\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{order}\PY{p}{(}A\PY{p}{)}
-	ordered.A\PY{o}{\PYZlt{}\PYZhy{}}A\PY{p}{[}ordered.indxs\PY{p}{]}
-	ordered.M\PY{o}{\PYZlt{}\PYZhy{}}M\PY{p}{[}ordered.indxs\PY{p}{]}
-	ordered.M\PY{o}{\PYZlt{}\PYZhy{}}adjM\PY{p}{(}ordered.M\PY{p}{,}ordered.A\PY{p}{)}
+	\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} ordering required for m\PYZus{}adj function}
+	ordered\PYZus{}indxs\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{order}\PY{p}{(}A\PY{p}{)}
+	ordered\PYZus{}A\PY{o}{\PYZlt{}\PYZhy{}}A\PY{p}{[}ordered\PYZus{}indxs\PY{p}{]}
+	ordered\PYZus{}M\PY{o}{\PYZlt{}\PYZhy{}}M\PY{p}{[}ordered\PYZus{}indxs\PY{p}{]}
+	ordered\PYZus{}M\PY{o}{\PYZlt{}\PYZhy{}}m\PYZus{}adj\PY{p}{(}ordered\PYZus{}M\PY{p}{,}ordered\PYZus{}A\PY{p}{)}
 	\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} get indexes of original ordering}
-	orig.order\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{order}\PY{p}{(}ordered.indxs\PY{p}{)}
-	M.dash\PY{o}{\PYZlt{}\PYZhy{}}ordered.M\PY{p}{[}orig.order\PY{p}{]}
+	orig\PYZus{}order\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{order}\PY{p}{(}ordered\PYZus{}indxs\PY{p}{)}
+	M\PYZus{}dash\PY{o}{\PYZlt{}\PYZhy{}}ordered\PYZus{}M\PY{p}{[}orig\PYZus{}order\PY{p}{]}
 	
-	orig.finites\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{is.finite}\PY{p}{(}M\PY{p}{)} \PY{c+c1}{\PYZsh{}update values requiring updating}
-	F1\PY{p}{[}orig.finites\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{2}\PY{o}{\PYZca{}}\PY{p}{(}A\PY{p}{[}orig.finites\PY{p}{]}\PY{o}{+}M.dash\PY{p}{[}orig.finites\PY{p}{]}\PY{o}{/}\PY{l+m}{2}\PY{p}{)}
-	F2\PY{p}{[}orig.finites\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{2}\PY{o}{\PYZca{}}\PY{p}{(}A\PY{p}{[}orig.finites\PY{p}{]}\PY{o}{\PYZhy{}}M.dash\PY{p}{[}orig.finites\PY{p}{]}\PY{o}{/}\PY{l+m}{2}\PY{p}{)}
+	orig\PYZus{}finites\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{is.finite}\PY{p}{(}M\PY{p}{)} \PY{c+c1}{\PYZsh{}update values requiring updating}
+	F1\PY{p}{[}orig\PYZus{}finites\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{2}\PY{o}{\PYZca{}}\PY{p}{(}A\PY{p}{[}orig\PYZus{}finites\PY{p}{]}\PY{o}{+}M\PYZus{}dash\PY{p}{[}orig\PYZus{}finites\PY{p}{]}\PY{o}{/}\PY{l+m}{2}\PY{p}{)}
+	F2\PY{p}{[}orig\PYZus{}finites\PY{p}{]}\PY{o}{\PYZlt{}\PYZhy{}}\PY{l+m}{2}\PY{o}{\PYZca{}}\PY{p}{(}A\PY{p}{[}orig\PYZus{}finites\PY{p}{]}\PY{o}{\PYZhy{}}M\PYZus{}dash\PY{p}{[}orig\PYZus{}finites\PY{p}{]}\PY{o}{/}\PY{l+m}{2}\PY{p}{)}
 	
-	delta.t\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{sprintf}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZpc{}.2f\PYZdq{}}\PY{p}{,}\PY{k+kp}{proc.time}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m}{3}\PY{p}{]}\PY{o}{\PYZhy{}}t1\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} time elapsed}
-	\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Completed MA Normalisation in\PYZdq{}}\PY{p}{,}delta.t\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{seconds \PYZbs{}n\PYZdq{}}\PY{p}{)}
+	delta\PYZus{}t\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{sprintf}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZpc{}.2f\PYZdq{}}\PY{p}{,}\PY{k+kp}{proc.time}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m}{3}\PY{p}{]}\PY{o}{\PYZhy{}}t1\PY{p}{)} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} time elapsed}
+	\PY{k+kp}{cat}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Completed MA Normalisation in\PYZdq{}}\PY{p}{,}delta\PYZus{}t\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{seconds \PYZbs{}n\PYZdq{}}\PY{p}{)}
 	\PY{k+kr}{return}\PY{p}{(}\PY{k+kt}{list}\PY{p}{(}F1adj\PY{o}{=}F1\PY{p}{,}F2adj\PY{o}{=}F2\PY{p}{)}\PY{p}{)}
-\PY{p}{\PYZcb{}}	
+\PY{p}{\PYZcb{}}
 \end{Verbatim}

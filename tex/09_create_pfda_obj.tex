@@ -1,5 +1,5 @@
 \begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8},gobble=0,numbers=left,fontfamily=fvm,fontshape=n,fontsize=\footnotesize,tabsize=2]
-\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} FUNCTION: createPFldaobj()}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} FUNCTION: create\PYZus{}pfda\PYZus{}obj()}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} estimate parameters of PF\PYZhy{}DA model, so that a discrim function created}
 
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} input:}
@@ -7,7 +7,7 @@
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Xclass: a vector of length n of the classes (must be a factor variable)}
 \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} priors: a vector of length K (\PYZsh{}classes) with elements in (0,1)}
 
-createPFldaobj\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}X\PY{p}{,}Xclass\PY{p}{,}lambdar\PY{o}{=}\PY{l+m}{1}\PY{p}{,}priors\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{,}alph\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{,}wts\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{)}
+create\PYZus{}pfda\PYZus{}obj\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kr}{function}\PY{p}{(}X\PY{p}{,}Xclass\PY{p}{,}lambdar\PY{o}{=}\PY{l+m}{1}\PY{p}{,}priors\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{,}alph\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{,}wts\PY{o}{=}\PY{k+kc}{NULL}\PY{p}{)}
 \PY{p}{\PYZob{}}
   N\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{length}\PY{p}{(}Xclass\PY{p}{)}
   P\PY{o}{\PYZlt{}\PYZhy{}}\PY{k+kp}{ncol}\PY{p}{(}X\PY{p}{)}
